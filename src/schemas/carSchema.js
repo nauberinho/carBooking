@@ -13,8 +13,5 @@ var car = new Schema({
 
     });
 
-
-
-
 module.exports = mongoose.model('Car', car)
 

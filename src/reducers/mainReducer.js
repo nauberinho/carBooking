@@ -6,7 +6,8 @@
 const mainReducer = (state = {
 
     view: "home",
-    carChoice: 'Mercedes'
+    carChoice: 'Mercedes',
+    carObject: []
 
 }, action) => {
 
@@ -22,8 +23,22 @@ const mainReducer = (state = {
             return newState;
 
         case 'BOOK_CAR':
+            var req = new XMLHttpRequest;
+            var data = [];
 
-            console.log('Car booked')
+            req.open('GET', "http://localhost:3009/api/cars")
+
+            req.send()
+
+            req.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                     data = JSON.parse(req.response);
+                    newState.carObject = data;
+
+                }
+            }
             return newState;
 
         case 'INITIAL_RENDER':

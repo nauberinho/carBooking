@@ -7,6 +7,23 @@ import React, { Component } from 'react';
 
 export default class Book extends Component {
     render(){
+
+        var carList = this.props.state.carObject;
+        console.log(this.props.state.carObject + ' = carList')
+
+        var mapList = carList.map((car, key) => {
+
+            return (
+                <li key={key}>
+
+                    {car.name}
+
+                </li>
+            )
+
+
+        })
+
         return(
             <div>
                 <select onChange={this.props.updateCarChoice} defaultValue="Mercedes">
@@ -17,7 +34,29 @@ export default class Book extends Component {
 
                 <button onClick={this.props.bookCar}>Book your car</button>
                 <button id='home' onClick={this.props.changeView}>Go Back</button>
+                    {
+                        this.props.state.carObject !== [] ?
+
+
+
+
+
+
+                        <ul>
+
+                            {mapList}
+
+                        </ul>
+
+                                :null
+
+                    }
+
+
+
             </div>
-        )
-    }
+
+)
+
+}
 }
