@@ -9,9 +9,10 @@ export function changeView (event){
     }
 }
 
-export function bookCar(){
+export function bookCar(event){
     return {
-        type: 'BOOK_CAR'
+        type: 'BOOK_CAR',
+        payload: event
     }
 }
 

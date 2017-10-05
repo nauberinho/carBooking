@@ -1,39 +1,79 @@
-var mongoose = require('mongoose');
-var MOVIE = require('./models/movieSchema.js');
-var moviesList = require('./moviesList.js')
+/**
+ * Created by naube on 2017-09-28.
+ */
 
+var req = new XMLHttpRequest;
 
-// Koppla upp mot en databas
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/cars', {
-    useMongoClient: true
-});
+var carsList = [];
 
+req.open('GET', "http://localhost:5000/api/cars");
 
-function createMovieObjectList(array){
-    let movieList = [];
-    array.forEach((movie)=>{
-        movieList.push(
-            new MOVIE({title:movie.title, year:movie.year, actors:movie.actors})
-        );
-});
-    movieList.forEach((movie) => {
+req.send();
 
-        movie.save(function(err, result) {
-            if(err){
-console.log(err)
-            }
-            else{
+req.onreadystatechange = function() {
+    console.log('onreadystatechange')
 
-                console.log(result)
+    if (this.readyState == 4 && this.status == 200) {
+        setTimeout(function(){
+            let data = JSON.parse(req.response);
+            console.log(data)
+
+                for(var car in data){
+
+                carsList.push(data[car])
+
             }
 
-    })
-
-    })
-    return movieList;
+        }, 100)
+    }
 }
 
-createMovieObjectList(moviesList);
+const carsReducer = (state = {
+    cars: carsList,
+    carObject: "",
+    display: false
 
+}, action) => {
+
+    let newState = state;
+
+    switch(action.type){
+
+        case 'UPDATE_CAR_CHOICE':
+            newState.carId = action.payload.target.value;
+            return newState;
+
+        case 'BOOK_CAR':
+            var carId = action.payload.target.getAttribute('data-id');
+            let bookReq = new XMLHttpRequest;
+            bookReq.open('PUT', "http://localhost:5000/api/cars?id=" + carId);
+
+            bookReq.send()
+
+            bookReq.onreadystatechange = function() {
+                console.log('onreadystatechange')
+
+                if (this.readyState == 4 && this.status == 200) {
+                    setTimeout(function(){
+                        let data = JSON.parse( bookReq.response);
+                        console.log(data)
+
+
+
+                    }, 100)
+                }
+            }
+
+
+
+
+
+            return newState
+
+        default:
+            return newState;
+    }
+}
+
+export default carsReducer;
 

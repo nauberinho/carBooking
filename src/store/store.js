@@ -6,11 +6,13 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
 
 import mainReducer from '../reducers/mainReducer';
+import carsReducer from '../reducers/carsReducer';
 
 
 export default createStore(
     combineReducers({
-        mainReducer
+        mainReducer,
+        carsReducer
     }),
     applyMiddleware(createLogger())
 );
