@@ -23,8 +23,17 @@ app.use(jsonParser);
 // ----- Load car model ----- //
 var Cars = require('./models/car.js');
 var Car = mongoose.model("Cars")
-var newCar = new Car;
-console.log(newCar)
+var carsData = require('./models/carsData.js');
+var carsList = carsData.carsList;
+for(var car in carsList){
+    var newCar = new Car(
+        carsList[car]
+    )
+    newCar.save()
+
+}
+
+
 
 // ------------------ //
 // ----- Routes ----- //
@@ -64,8 +73,12 @@ app.put('/api/cars', function(req, res) {
     var _id = req.query.id;
     console.log('found car')
     Cars.getCarById(_id, function(err, success) {
-        console.log('before update');
-        console.log('updated Car! : ' + success)
+        console.log(success);
+        if(err){
+
+            console.log(err)
+        }
+
 		if(success) {
             success.status = true;
             Cars.updateCar(_id, success, {}, function (err, success) {

@@ -14,7 +14,12 @@ export default class Book extends Component {
         let mapList = carList.map((car, key) => {
             return (
                 <li className="col-xs-6 col-sm-4 col-md-3 book-li" data-id={car._id} key={key} onClick={this.props.bookCar}>
-                    {car._id}
+                    <div className="col-xs-12">Märke: {car.brand}</div>
+                    <div className="col-xs-12">Modell: {car.model}</div>
+                    <div className="col-xs-12">Årsmodell: {car.year}</div>
+                    <div className="col-xs-12">Växellåda: {car.gearbox}</div>
+                    <div className="col-xs-12">Dagshyra: {car.dagshyra}</div>
+                    <img className="book-li-img" src={car.imgLink} alt={car.imgLink}/>
                 </li>
             )
         })

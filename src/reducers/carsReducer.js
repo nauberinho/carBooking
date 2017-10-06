@@ -44,7 +44,7 @@ const carsReducer = (state = {
         case 'BOOK_CAR':
             var carId = action.payload.target.getAttribute('data-id');
             let bookReq = new XMLHttpRequest;
-            bookReq.open('PUT', "http://localhost:5000/api/cars?id=" + carId);
+            bookReq.open('PUT', "http://localhost:7000/api/cars?id=" + carId);
             bookReq.send()
             bookReq.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
