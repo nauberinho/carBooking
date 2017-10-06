@@ -34,9 +34,7 @@ const carsReducer = (state = {
     display: false
 
 }, action) => {
-
     let newState = state;
-
     switch(action.type){
 
         case 'UPDATE_CAR_CHOICE':
@@ -47,27 +45,15 @@ const carsReducer = (state = {
             var carId = action.payload.target.getAttribute('data-id');
             let bookReq = new XMLHttpRequest;
             bookReq.open('PUT', "http://localhost:5000/api/cars?id=" + carId);
-
             bookReq.send()
-
             bookReq.onreadystatechange = function() {
-                console.log('onreadystatechange')
-
                 if (this.readyState == 4 && this.status == 200) {
-                    setTimeout(function(){
-                        let data = JSON.parse( bookReq.response);
-                        console.log(data)
-
-
-
+                    setTimeout(function () {
+                        let data = JSON.parse(bookReq.response);
+                        console.log('data: ' + data)
                     }, 100)
                 }
             }
-
-
-
-
-
             return newState
 
         default:

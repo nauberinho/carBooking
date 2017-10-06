@@ -39,6 +39,7 @@ module.exports.addCar = function(data, callback) {
 
 // Update car
 module.exports.updateCar = function(_id, car, options, callback) {
+
 	var update = {
 		fordonstyp: car.fordonstyp,
 		requiredDrivingLicense: car.requiredDrivingLicense,
@@ -51,6 +52,7 @@ module.exports.updateCar = function(_id, car, options, callback) {
 		imgLink: car.imgLink,
 		status: car.status
 	}
+
 	Cars.findOneAndUpdate(_id, update, options, callback);
 }
 

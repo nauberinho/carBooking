@@ -20,14 +20,11 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json({ type: 'application/json' });
 app.use(jsonParser);
 
-
-
-
-
 // ----- Load car model ----- //
-Cars = require('./models/car.js');
-
-
+var Cars = require('./models/car.js');
+var Car = mongoose.model("Cars")
+var newCar = new Car;
+console.log(newCar)
 
 // ------------------ //
 // ----- Routes ----- //
@@ -64,10 +61,11 @@ app.post('/api/cars', function(req, res) {
 // ----- Update a car by id ----- //
 
 app.put('/api/cars', function(req, res) {
-    var _id = req.query.id
+    var _id = req.query.id;
     console.log('found car')
     Cars.getCarById(_id, function(err, success) {
-        console.log('before update')
+        console.log('before update');
+        console.log('updated Car! : ' + success)
 		if(success) {
             success.status = true;
             Cars.updateCar(_id, success, {}, function (err, success) {
@@ -79,11 +77,6 @@ app.put('/api/cars', function(req, res) {
     });
 });
 
-
-
-
-
-
 // ----- Start server ----- //
-app.listen(5000);
-console.log('Listening on port 5000...');
+app.listen(7000);
+console.log('Listening on port 7000...');

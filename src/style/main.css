@@ -1,0 +1,73 @@
+
+
+/* General */
+body{
+    font-family: 'News Cycle', sans-serif;
+}
+
+.main-container{
+    height: 100vh;
+    min-height: 400px;
+    width: 100%;
+}
+
+/* Home section */
+.home-btns{
+
+    width: 100%;
+    align-content: center;
+    top: 20%;
+    position: relative;
+}
+.btn-default{
+    font-family: 'News Cycle', sans-serif;
+    background: none;
+    display: block;
+    border: none;
+    transition: 0.2s ease;
+    cursor: pointer;
+    font-weight: 700;
+    margin: auto;
+    margin-top: 2%;
+    border-bottom: 2px solid #35a3f2;
+}
+
+.btn-default:hover{
+    border-bottom: 2px solid #a8cddd;
+    color: #a8cddd;
+}
+
+/* Book section */
+
+
+.book-container{
+    height: 100%;
+    width: 100%;
+}
+
+.book-ul{
+    width: 100%;
+    height: 100%;
+}
+
+    .book-li{
+        height: 30%;
+    }
+
+    .book-ul-title{
+font-family: 'News Cycle', sans-serif;
+        color: #223759;
+
+
+    }
+
+
+
+
+
+
+
+/*Admin section*/
+
+
+

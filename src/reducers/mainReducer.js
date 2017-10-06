@@ -11,23 +11,17 @@ const mainReducer = (state = {
     display: false
 
 }, action) => {
-
     let newState = {...state};
-
     switch(action.type){
         case 'CHANGE_VIEW':
             newState = {...newState, view: action.payload.target.id}
             return newState;
-
         case 'INITIAL_RENDER':
-
             console.log('Car booked')
             return newState;
-
         default:
             return newState;
     }
-
 }
 
 export default mainReducer;

@@ -1,6 +1,6 @@
 
 
-import '../style/App.css';
+import '../style/main.css';
 import Home from './Home.js';
 import Book from './Book.js';
 import LogIn from './LogIn.js';
@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
 
-        <div>
+        <div className="main-container">
 
         {
             this.props.mainState.view === 'home'?

@@ -12,12 +12,9 @@ export default class Home extends Component {
 
     render(){
         return(
-            <div>
-                HOME
-
-                <button id='book' onClick={this.props.changeView}>Book a car</button>
-                <button id='logIn' onClick={this.props.changeView}>Log in as administrator</button>
-
+            <div className="home-btns">
+                <button className='btn-default col-xs-3' id='book' onClick={this.props.changeView}>Book a car</button>
+                <button className='btn-default col-xs-3' id='logIn' onClick={this.props.changeView}>Log in as administrator</button>
             </div>
         )
     }
