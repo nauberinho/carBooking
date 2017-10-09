@@ -66,9 +66,20 @@ app.put('/api/cars/:_id', function(req, res) {
 	});
 });
 
+// ----- Book a car by id ----- //
+app.post('/api/cars/book', function(req, res) {
+    var _id = req.query.id;
+    Cars.bookCar(_id, function(err, car) {
+        car ? console.log('Booked car! : ' + car) : (err) => {
+            throw err
+        };
+    })
+})
+
+
 
 
 
 // ----- Start server ----- //
-app.listen(3000);
-console.log('Listening on port 3000...');
+app.listen(7000);
+console.log('Listening on port 7000...');

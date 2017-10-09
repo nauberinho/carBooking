@@ -93,33 +93,17 @@ app.put('/api/cars', function(req, res) {
     });
 });
 
+// ----- Book a car by id ----- //
 app.post('/api/cars/book', function(req, res) {
     var _id = req.query.id;
-    Cars.getCarById(_id, function(err, car) {
-        console.log('Trying to book the fucking car');
-        /*if(car.status === false) {
-            Cars.bookCar(_id, function(err, success) {
-                success ? console.log('Booked car! : ' + success) : (err) => {
-                    throw err
-                };
-            })
-        }*/
+    Cars.bookCar(_id, function(err, car) {
+        car ? console.log('Booked car! : ' + car) : (err) => {
+            throw err
+        };
     })
 })
 
-app.post('/api/cars/unbook', function(req, res) {
-    var _id = req.query.id;
-    Cars.getCarById(_id, function(err, car) {
-        console.log('Found car');
-        if(car.status === false) {
-            Cars.bookCar(_id, function(err, success) {
-                success ? console.log('Booked car! : ' + success) : (err) => {
-                    throw err
-                };
-            })
-        }
-    })
-})
+
 
 
 

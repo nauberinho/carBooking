@@ -35,19 +35,17 @@ const carsReducer = (state = {
             return newState;
 
         case 'BOOK_CAR':
+            console.log('in book car')
             var carId = action.payload.target.getAttribute('data-id');
             let bookReq = new XMLHttpRequest;
             bookReq.open('POST', "http://localhost:7000/api/cars/book?id=" + carId, true);
             bookReq.send()
-            bookReq.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
+            setTimeout(function() {
+                var carsList = updateCars();
+                newState.cars = carsList;
+                    return newState
+            }, 200)
 
-                        let data = JSON.parse(bookReq.response);
-                        console.log('data: ' + data)
-
-                }
-            }
-            return newState
 
         default:
             return newState;

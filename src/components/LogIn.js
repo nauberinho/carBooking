@@ -77,7 +77,7 @@ removeCar(event) {
 
         return(
             <div>
-
+                <button className='btn-default' id='home' onClick={this.props.changeView}>Gå tillbaka</button>
 
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                     <input value={this.state.updatedCar.fordonstyp} placeholder="Fordonstyp" id="fordonstyp" onChange={this.placeholderEvent} />
@@ -106,8 +106,6 @@ removeCar(event) {
                 <ul>
                     {carsList}
                 </ul>
-                <button id='home' onClick={this.props.changeView}>Gå tillbaka</button>
-
             </div>
         )
     }

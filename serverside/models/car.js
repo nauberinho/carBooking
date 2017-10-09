@@ -59,5 +59,17 @@ module.exports.removeCar = function(_id, callback) {
 };
 
 module.exports.bookCar = function(_id, callback) {
-    Cars.findById(id, callback);
+    Cars.findById(_id, function (err, car) {
+        if (car) {
+            var carToChange = car;
+            if (car.status === true) {
+                carToChange.status = false;
+                console.log('trying to UNBOOK...');
+            } else {
+                carToChange.status = true;
+                console.log('trying to BOOK...');
+            }
+            Cars.findOneAndUpdate(_id, carToChange, callback);
+        }
+    })
 }
