@@ -28,3 +28,18 @@ export function initialRender(){
         type: 'INITIAL_RENDER'
     }
 }
+
+
+export function addCar(event){
+    return {
+        type: 'ADD_CAR',
+        payload: event
+    }
+}
+
+export function removeCar(event){
+    return {
+        type: 'ADD_CAR',
+        payload: event
+    }
+}

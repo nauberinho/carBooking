@@ -5,7 +5,7 @@ import Home from './Home.js';
 import Book from './Book.js';
 import LogIn from './LogIn.js';
 
-import {changeView, updateCarChoice, bookCar, initialRender} from '../actions/commonActions.js'
+import {changeView, updateCarChoice, bookCar, initialRender, addCar, removeCar} from '../actions/commonActions.js'
 
 import {connect} from 'react-redux';
 import React, { Component } from 'react';
@@ -24,14 +24,20 @@ class App extends Component {
         }
 
             {
-                this.props.mainState.view === 'book'?
-                    <Book bookCar={this.props.bookCar} updateCarChoice={this.props.updateCarChoice} state={this.props.carsState} changeView={this.props.changeView}/>
-                    :null
+                this.props.mainState.view === 'book'
+                    ?
+                    <Book bookCar={this.props.bookCar}
+                          updateCarChoice={this.props.updateCarChoice}
+                          state={this.props.carsState}
+                          changeView={this.props.changeView}
+                    />
+                    :
+                    null
             }
 
             {
                 this.props.mainState.view === 'logIn'?
-                    <LogIn state={this.props.mainState} changeView={this.props.changeView}/>
+                    <LogIn state={this.props.carsState} changeView={this.props.changeView} addCar={this.props.addCar} removeCar={this.props.removeCar} />
                     :null
             }
 
@@ -65,10 +71,16 @@ const mapStateToProps = (state) => {
             },
 
             initialRender: () => {
-
                 dispatch:( initialRender())
-            }
+            },
 
+            addCar: (event) => {
+                dispatch: ( addCar(event))
+            },
+
+            removeCar: (event) => {
+                dispatch: ( removeCar(event))
+            },
 
         };
     }

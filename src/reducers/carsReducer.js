@@ -1,35 +1,28 @@
 /**
  * Created by naube on 2017-09-28.
  */
-
-var req = new XMLHttpRequest;
-
-var carsList = [];
-
-req.open('GET', "http://localhost:5000/api/cars");
-
-req.send();
-
-req.onreadystatechange = function() {
-    console.log('onreadystatechange')
-
-    if (this.readyState == 4 && this.status == 200) {
-        setTimeout(function(){
-            let data = JSON.parse(req.response);
-            console.log(data)
-
-                for(var car in data){
-
-                carsList.push(data[car])
-
-            }
-
-        }, 100)
+function updateCars() {
+    var req = new XMLHttpRequest;
+    var carsList = [];
+    req.open('GET', "http://localhost:7000/api/cars");
+    req.send();
+    req.onreadystatechange = function () {
+        console.log('onreadystatechange')
+        if (this.readyState == 4 && this.status == 200) {
+            setTimeout(function () {
+                let data = JSON.parse(req.response);
+                console.log(data)
+                for (var car in data) {
+                    carsList.push(data[car])
+                }
+            }, 100)
+        }
     }
+    return carsList;
 }
 
 const carsReducer = (state = {
-    cars: carsList,
+    cars: updateCars(),
     carObject: "",
     display: false
 
@@ -44,14 +37,14 @@ const carsReducer = (state = {
         case 'BOOK_CAR':
             var carId = action.payload.target.getAttribute('data-id');
             let bookReq = new XMLHttpRequest;
-            bookReq.open('PUT', "http://localhost:7000/api/cars?id=" + carId);
+            bookReq.open('POST', "http://localhost:7000/api/cars/book?id=" + carId, true);
             bookReq.send()
             bookReq.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    setTimeout(function () {
+
                         let data = JSON.parse(bookReq.response);
                         console.log('data: ' + data)
-                    }, 100)
+
                 }
             }
             return newState

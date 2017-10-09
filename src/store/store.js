@@ -7,12 +7,14 @@ import {createLogger} from 'redux-logger';
 
 import mainReducer from '../reducers/mainReducer';
 import carsReducer from '../reducers/carsReducer';
+import logInReducer from '../reducers/logInReducer';
 
 
 export default createStore(
     combineReducers({
         mainReducer,
-        carsReducer
+        carsReducer,
+        logInReducer
     }),
     applyMiddleware(createLogger())
 );

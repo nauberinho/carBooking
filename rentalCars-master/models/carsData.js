@@ -170,7 +170,7 @@ let carsList = [
         "model": "v70",
         "year": 1996,
         "dagshyra": 298,
-        "fuel": "diesel"
+        "fuel": "diesel",
     },
 ]
 

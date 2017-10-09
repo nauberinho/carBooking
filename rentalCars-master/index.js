@@ -1,5 +1,3 @@
-
-// ----- Dependencies ----- //
 var express = require('express');
 var mongoose = require('mongoose');
 
@@ -20,18 +18,12 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json({ type: 'application/json' });
 app.use(jsonParser);
 
-// ----- Load car model ----- //
-var Cars = require('./models/car.js');
-var Car = mongoose.model("Cars")
-var carsData = require('./models/carsData.js');
-var carsList = carsData.carsList;
-for(var car in carsList){
-    var newCar = new Car(
-        carsList[car]
-    )
-    newCar.save()
 
-}
+
+
+
+// ----- Load car model ----- //
+Cars = require('./models/car.js');
 
 
 
@@ -58,14 +50,30 @@ app.get('/api/cars:_id', function(req, res) {
 
 
 // ----- Add new car ----- //
-app.post('/api/cars', function(req, res) {
+app.post('/api/cars/add', function(req, res) {
     var car = req.body;
-    console.log(req.body)
-    //Cars.addCar(car, function(err, success) {
-    // If successful, return json data, else throw error;
-    //	success ? res.json(success) : (err) => {throw err};
-    //});
+
+    Cars.addCar(car, function(err, success) {
+        console.log("added car: " + success)
+        // If successful, return json data, else throw error;
+        success ? res.json(success) : (err) => {throw err};
+    });
 });
+
+// ----- Remove car by id ----- //
+app.post('/api/cars/remove', function(req, res) {
+    var _id = req.query.id;
+    console.log('Removing car with id: ... ' + _id)
+    Cars.getCarById(_id, function(err, success) {
+        if(success) {
+            Cars.removeCar(_id, function(err, completed) {
+                // If successful, return json data, else throw error;
+                success ? console.log('Removed car!') : (err) => {throw err};
+            });
+        }
+    })
+
+})
 
 // ----- Update a car by id ----- //
 
@@ -73,22 +81,51 @@ app.put('/api/cars', function(req, res) {
     var _id = req.query.id;
     console.log('found car')
     Cars.getCarById(_id, function(err, success) {
-        console.log(success);
-        if(err){
-
-            console.log(err)
-        }
-
-		if(success) {
+        console.log('before update')
+        if(success) {
             success.status = true;
             Cars.updateCar(_id, success, {}, function (err, success) {
-                success ? console.log('updated Car! : ' + success) : (err) => {
+                success ? console.log('Updated Car! : ' + success) : (err) => {
                     throw err
                 };
             })
         }
     });
 });
+
+app.post('/api/cars/book', function(req, res) {
+    var _id = req.query.id;
+    Cars.getCarById(_id, function(err, car) {
+        console.log('Trying to book the fucking car');
+        /*if(car.status === false) {
+            Cars.bookCar(_id, function(err, success) {
+                success ? console.log('Booked car! : ' + success) : (err) => {
+                    throw err
+                };
+            })
+        }*/
+    })
+})
+
+app.post('/api/cars/unbook', function(req, res) {
+    var _id = req.query.id;
+    Cars.getCarById(_id, function(err, car) {
+        console.log('Found car');
+        if(car.status === false) {
+            Cars.bookCar(_id, function(err, success) {
+                success ? console.log('Booked car! : ' + success) : (err) => {
+                    throw err
+                };
+            })
+        }
+    })
+})
+
+
+
+
+
+
 
 // ----- Start server ----- //
 app.listen(7000);
