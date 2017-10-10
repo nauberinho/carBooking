@@ -9,6 +9,17 @@ export function changeView (event){
     }
 }
 
+
+
+export function changeAuthType (event){
+
+    return {
+        type: 'CHANGE_AUTH_TYPE',
+        payload: event
+    }
+
+}
+
 export function bookCar(event){
     return {
         type: 'BOOK_CAR',
@@ -67,14 +78,14 @@ export function handleCreateAccount(event){
 
 }
 
-
-export function chooseAuthType (event){
+export function sayHello(event){
 
     return {
-        type: 'CHOOSE_AUTH_TYPE',
+        type: 'SAY_HELLO',
         payload: event
     }
 
 }
+
 
 

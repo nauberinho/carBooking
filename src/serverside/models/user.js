@@ -37,8 +37,8 @@ module.exports.signIn = function(_id, callback) {
 }
 
 // Add user
-module.exports.createUser = function(data, callback) {
-    Users.create(data, callback);
+module.exports.createUser = function(user, callback) {
+    Users.create(user, callback);
 }
 
 

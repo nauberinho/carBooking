@@ -18,25 +18,30 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json({ type: 'application/json' });
 app.use(jsonParser);
 
-
-
-
 // ----- Load user model ----- //
 
-
-Users = require('./models/user.js')
-
-
+var Users = require('./models/user.js')
 
 // ------------------ //
 // ----- Auth Routes ----- //
 // ------------------ //
 
-// ----- Sign in ----- //
+
+// ------Create user account------ //
+app.post('/api/cars/createaccount', function(req, res) {
+    var user = req.body;
+    console.log('trying to add user: ' + user)
+    Users.createUser(user, function(err, success) {
+        console.log("added user: " + success)
+        // If successful, return json data, else throw error;
+        success ? res.json(success) : (err) => {throw err};
+    });
+});
+
 // ----- Sign in by id ----- //
 app.post('/api/cars/signin', function(req, res) {
     console.log('trying to sign in')
-    var _id = req.query.id;
+    var _id = req.body.id;
     Users.signIn(_id, function(err, user) {
         user ? console.log('You are signed in! : ' + car) : (err) => {
             throw err
@@ -45,17 +50,7 @@ app.post('/api/cars/signin', function(req, res) {
     })
 })
 
-// ------Create user account------ //
-app.post('/api/cars/createaccount', function(req, res) {
-    var user = req.body;
-    console.log('trying to add user: ' + user)
-    Users.createUser(car, function(err, success) {
-        console.log("added user: " + success)
-        // If successful, return json data, else throw error;
-        success ? res.json(success) : (err) => {throw err};
-    });
-});
-
+//----Return signed in user-----//
 app.get('/api/cars/signin', function(req, res) {
     var user = req.body;
     Users.checkIfSignedIn(user, function(err, success) {
@@ -64,11 +59,8 @@ app.get('/api/cars/signin', function(req, res) {
     });
 });
 
-
-
-
 // ----- Load car model ----- //
-Cars = require('./models/car.js');
+var Cars = require('./models/car.js');
 
 // ------------------ //
 // ----- Car Routes ----- //
@@ -88,7 +80,6 @@ app.get('/api/cars:_id', function(req, res) {
         success ? res.json(success) : (err) => {throw err};
     });
 });
-
 
 // ----- Add new car ----- //
 app.post('/api/cars/add', function(req, res) {
@@ -141,14 +132,6 @@ app.post('/api/cars/book', function(req, res) {
         };
     })
 })
-
-
-
-
-
-
-
-
 
 // ----- Start server ----- //
 app.listen(7000);

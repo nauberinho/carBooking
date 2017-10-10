@@ -6,13 +6,14 @@ import React, { Component } from 'react';
 
 export default class SignInOrSignUp extends Component {
     render() {
+
         return (
 
 
             <div className="col-sm-12">
 
-                <button className="col-sm-6" id="signin" onClick={this.props.chooseAuthType}>Sign In</button>
-                <button className="col-sm-6" id="create" onClick={this.props.chooseAuthType}>Create account</button>
+                <button className="col-sm-6" data-id="signIn" onClick={this.props.changeView}>Sign In</button>
+                <button className="col-sm-6" data-id="create" onClick={this.props.changeView}>Create account</button>
 
             </div>
 

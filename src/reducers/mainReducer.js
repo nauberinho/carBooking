@@ -24,8 +24,8 @@ const mainReducer = (state = {
     auth: {
         user: false,
         admin: false,
-        authObject: updateUser(),
-        create: false,
+        authObject: {},
+        create: true,
         signIn: false
     },
 
@@ -33,13 +33,26 @@ const mainReducer = (state = {
     let newState = {...state};
     switch(action.type){
         case 'CHANGE_VIEW':
+            if(action.payload.target.getAttribute('data-id') === 'signIn' || action.payload.target.getAttribute('data-id') === 'create'){
+                let bool = true;
+                if(newState.auth[action.payload.target.getAttribute('data-id')] === true){
+                    bool = false
+                }
+                else{
+                    bool = true;
+                }
+                newState.auth.signIn = false;
+                newState.auth.create = false;
+                newState.auth[action.payload.target.getAttribute('data-id')] = bool;
+                console.log('changed auth type')
+            }
+            console.log('changing view');
+
+            if(action.payload.target.getAttribute('data-id') !== 'signIn' && action.payload.target.getAttribute('data-id') !== 'create') {
             newState = {...newState, view: action.payload.target.id};
+            }
             return newState;
 
-        case 'CHOOSE_AUTH_TYPE':
-            console.log('choosing');
-            newState.auth[action.payload.target.id] = true;
-            return newState;
 
 
         case 'INITIAL_RENDER':
@@ -63,14 +76,20 @@ const mainReducer = (state = {
         case 'HANDLE_CREATE_ACCOUNT':
             action.payload.preventDefault();
             let create = new XMLHttpRequest();
-            create.open('POST', 'http://localhost:7000/api/cars/createaccount', true);
+            create.open('POST', 'http://localhost:7000/api/cars/add', true);
             create.setRequestHeader("Content-Type", "application/json");
             create.send(JSON.stringify(newState.auth.authObject));
 
             return newState;
 
         case 'UPDATE_AUTH_OBJECT':
+            console.log('updating')
             newState.auth.authObject[action.payload.target.id] = action.payload.target.id
+
+            return newState;
+
+        case 'SAY_HELLO':
+            console.log('HELLO WORLD')
 
             return newState;
 
