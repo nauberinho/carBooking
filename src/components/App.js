@@ -3,9 +3,21 @@
 import '../style/main.css';
 import Home from './Home.js';
 import Book from './Book.js';
-import LogIn from './LogIn.js';
+import Admin from './Admin.js';
+import Authentication from './Authentication.js'
+import SignInOrSignUp from './SignInOrSignUp.js'
 
-import {changeView, updateCarChoice, bookCar, initialRender, addCar, removeCar} from '../actions/commonActions.js'
+import {
+    changeView,
+    updateCarChoice,
+    bookCar, initialRender,
+    addCar,
+    removeCar,
+    handleSignIn,
+    updateAuthObject,
+    handleCreateAccount,
+    chooseAuthType
+} from '../actions/commonActions.js'
 
 import {connect} from 'react-redux';
 import React, { Component } from 'react';
@@ -17,27 +29,66 @@ class App extends Component {
 
         <div className="main-container">
 
-        {
-            this.props.mainState.view === 'home'?
-                <Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender}/>
+            {
+            this.props.mainState.view === 'home' ?
+                (<Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender}/>,
+                <SignInOrSignUp chooseAuthType={this.props.chooseAuthType}/>)
+
                 :null
-        }
+            }
+
+
 
             {
                 this.props.mainState.view === 'book'
                     ?
-                    <Book bookCar={this.props.bookCar}
-                          updateCarChoice={this.props.updateCarChoice}
-                          state={this.props.carsState}
-                          changeView={this.props.changeView}
-                    />
-                    :
-                    null
+                        this.props.mainState.auth.user === true ?
+                            <Book bookCar={this.props.bookCar}
+                            updateCarChoice={this.props.updateCarChoice}
+                            state={this.props.carsState}
+                            changeView={this.props.changeView}
+                            />
+                            :
+                            this.props.mainState.auth.create === false && this.props.mainState.auth.signIn === false ?
+
+                                <SignInOrSignUp chooseAuthType={this.props.chooseAuthType}/>
+
+                                :
+
+                                <Authentication handleSignIn={this.props.handleSignIn}
+                                                updateAuthObject={this.props.updateAuthObject}
+                                                state={this.props.mainState}
+                                                changeView={this.props.changeView}
+                                                handleCreateAccount={this.props.handleCreateAccount}
+
+                                />
+                    :null
             }
 
             {
                 this.props.mainState.view === 'logIn'?
-                    <LogIn state={this.props.carsState} changeView={this.props.changeView} addCar={this.props.addCar} removeCar={this.props.removeCar} />
+                    this.props.mainState.auth.admin === true ?
+                    <Admin
+                        state={this.props.carsState}
+                        changeView={this.props.changeView}
+                        addCar={this.props.addCar}
+                        removeCar={this.props.removeCar}
+                    />
+                        :
+
+                        this.props.mainState.auth.create === false && this.props.mainState.auth.signIn === false ?
+
+                            <SignInOrSignUp chooseAuthType={this.props.chooseAuthType}/>
+
+                            :
+
+                        <Authentication handleSignIn={this.props.handleSignIn}
+                                        updateAuthObject={this.props.updateAuthObject}
+                                        state={this.props.mainState}
+                                        changeView={this.props.changeView}
+                                        handleCreateAccount={this.props.handleCreateAccount}
+
+                        />
                     :null
             }
 
@@ -81,6 +132,23 @@ const mapStateToProps = (state) => {
             removeCar: (event) => {
                 dispatch: ( removeCar(event))
             },
+
+            handleSignIn: (event) => {
+                dispatch: (handleSignIn (event))
+            },
+
+            updateAuthObject: (event) => {
+                dispatch: (updateAuthObject (event))
+            },
+
+            handleCreateAccount: (event) => {
+                dispatch: (handleCreateAccount (event))
+            },
+
+            chooseAuthType: (event) => {
+                dispatch: (chooseAuthType (event))
+            }
+
 
         };
     }

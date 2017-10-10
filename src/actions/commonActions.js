@@ -43,3 +43,38 @@ export function removeCar(event){
         payload: event
     }
 }
+
+export function updateAuthObject(event){
+    return {
+        type: 'UPDATE_AUTH_OBJECT',
+        payload: event
+    }
+}
+
+export function handleSignIn(event){
+    return {
+        type: 'HANDLE_SIGN_IN',
+        payload: event
+    }
+}
+
+export function handleCreateAccount(event){
+
+    return {
+        type: 'HANDLE_CREATE_ACCOUNT',
+        payload: event
+    }
+
+}
+
+
+export function chooseAuthType (event){
+
+    return {
+        type: 'CHOOSE_AUTH_TYPE',
+        payload: event
+    }
+
+}
+
+

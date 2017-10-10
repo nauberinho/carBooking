@@ -3,6 +3,21 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
+//---socket.io----//
+
+const io = require('socket.io')();
+
+io.on('connection', (client) => {
+	io.emit('initialRender')
+    client.on('subscribeToTimer', (interval) => {
+        console.log('client is subscribing to timer with interval ', interval);
+        setInterval(() => {
+            client.emit('timer', new Date());
+        }, interval);
+    });
+});
+
+
 // ----- Init app ----- //
 var app = express();
 
@@ -76,10 +91,7 @@ app.post('/api/cars/book', function(req, res) {
     })
 })
 
-
-
-
-
 // ----- Start server ----- //
 app.listen(7000);
 console.log('Listening on port 7000...');
+io.listen(app);

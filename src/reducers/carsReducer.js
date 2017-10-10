@@ -40,12 +40,12 @@ const carsReducer = (state = {
             let bookReq = new XMLHttpRequest;
             bookReq.open('POST', "http://localhost:7000/api/cars/book?id=" + carId, true);
             bookReq.send()
-            setTimeout(function() {
-                var carsList = updateCars();
-                newState.cars = carsList;
-                    return newState
+            setTimeout(function(){
+                newState.cars = updateCars();
+
             }, 200)
 
+            return newState;
 
         default:
             return newState;
