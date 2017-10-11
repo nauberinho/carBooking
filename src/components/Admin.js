@@ -28,7 +28,7 @@ export default class SignIn extends Component {
     }
 
 handleSubmit(event) {
-    event.preventDefault();
+
     let pushSubmit = new XMLHttpRequest();
     pushSubmit.open('POST', 'http://localhost:7000/api/cars/add', true);
     pushSubmit.setRequestHeader("Content-Type", "application/json");

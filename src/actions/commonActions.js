@@ -34,11 +34,6 @@ export function updateCarChoice(event){
     }
 }
 
-export function initialRender(){
-    return {
-        type: 'INITIAL_RENDER'
-    }
-}
 
 
 export function addCar(event){
@@ -78,11 +73,11 @@ export function handleCreateAccount(event){
 
 }
 
-export function sayHello(event){
+export function sayHello(){
 
     return {
-        type: 'SAY_HELLO',
-        payload: event
+        type: 'SAY_HELLO'
+
     }
 
 }

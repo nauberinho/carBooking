@@ -9,7 +9,7 @@ function updateUser() {
     req.send();
     req.onreadystatechange = function () {
         console.log('onreadystatechange')
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             setTimeout(function () {
                 user = JSON.parse(req.response);
                 console.log(user)
@@ -32,6 +32,21 @@ const mainReducer = (state = {
 }, action) => {
     let newState = {...state};
     switch(action.type){
+
+        case 'HANDLE_SIGN_IN':
+            action.payload.preventDefault();
+            let pushSubmit = new XMLHttpRequest();
+            pushSubmit.open('POST', 'http://localhost:7000/api/cars/signin', true);
+            pushSubmit.setRequestHeader("Content-Type", "application/json");
+            pushSubmit.send(JSON.stringify(newState.auth.authObject));
+            setTimeout(function(){
+                pushSubmit.open('GET', 'http://localhost:7000/api/cars/signin', true);
+                pushSubmit.setRequestHeader("Content-Type", "application/json");
+                pushSubmit.send(JSON.stringify(newState.auth.authObject));
+            }, 200)
+
+            return newState;
+
         case 'CHANGE_VIEW':
             if(action.payload.target.getAttribute('data-id') === 'signIn' || action.payload.target.getAttribute('data-id') === 'create'){
                 let bool = true;
@@ -49,29 +64,11 @@ const mainReducer = (state = {
             console.log('changing view');
 
             if(action.payload.target.getAttribute('data-id') !== 'signIn' && action.payload.target.getAttribute('data-id') !== 'create') {
-            newState = {...newState, view: action.payload.target.id};
+                newState = {...newState, view: action.payload.target.id};
             }
             return newState;
 
 
-
-        case 'INITIAL_RENDER':
-            //To use later
-            return newState
-
-        case 'HANDLE_SIGN_IN':
-            action.payload.preventDefault();
-            let pushSubmit = new XMLHttpRequest();
-            pushSubmit.open('POST', 'http://localhost:7000/api/cars/signin', true);
-            pushSubmit.setRequestHeader("Content-Type", "application/json");
-            pushSubmit.send(JSON.stringify(newState.auth.authObject));
-            setTimeout(function(){
-                pushSubmit.open('GET', 'http://localhost:7000/api/cars/signin', true);
-                pushSubmit.setRequestHeader("Content-Type", "application/json");
-                pushSubmit.send(JSON.stringify(newState.auth.authObject));
-            }, 200)
-
-            return newState;
 
         case 'HANDLE_CREATE_ACCOUNT':
             action.payload.preventDefault();
@@ -84,18 +81,21 @@ const mainReducer = (state = {
 
         case 'UPDATE_AUTH_OBJECT':
             console.log('updating')
-            newState.auth.authObject[action.payload.target.id] = action.payload.target.id
+            newState.auth.authObject[action.payload.target.id] = action.payload.target.id;
 
             return newState;
 
         case 'SAY_HELLO':
             console.log('HELLO WORLD')
+            newState = {...newState}
 
             return newState;
 
         default:
             return newState;
     }
+
+
 
 }
 export default mainReducer;

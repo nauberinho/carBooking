@@ -30,6 +30,7 @@ const carsReducer = (state = {
     let newState = state;
     switch(action.type){
 
+
         case 'UPDATE_CAR_CHOICE':
             newState.carId = action.payload.target.value;
             return newState;
@@ -43,7 +44,13 @@ const carsReducer = (state = {
             setTimeout(function(){
                 newState.cars = updateCars();
 
-            }, 200)
+            }, 200);
+
+            return newState;
+
+        case 'SAY_HELLO':
+            console.log('HELLO WORLD')
+            newState = {...newState}
 
             return newState;
 

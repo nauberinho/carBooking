@@ -6,10 +6,6 @@ import React, { Component } from 'react';
 
 export default class Home extends Component {
 
-    componentWillMount() {
-        this.props.initialRender();
-    }
-
     render(){
         return(
             <div className="home-btns">

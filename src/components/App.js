@@ -4,14 +4,14 @@ import '../style/main.css';
 import Home from './Home.js';
 import Book from './Book.js';
 import Admin from './Admin.js';
-import Authentication from './Authentication.js'
-import SignInOrSignUp from './SignInOrSignUp.js'
+import Authentication from './Authentication.js';
+import SignInOrSignUp from './SignInOrSignUp.js';
 
 
 import {
     changeView,
     updateCarChoice,
-    bookCar, initialRender,
+    bookCar,
     addCar,
     removeCar,
     handleSignIn,
@@ -19,24 +19,32 @@ import {
     handleCreateAccount,
     changeAuthType,
     sayHello
-} from '../actions/commonActions.js'
+} from '../actions/commonActions.js';
 
 import {connect} from 'react-redux';
 import React, { Component } from 'react';
 
 
 class App extends Component {
-  render() {
-    return (
 
+  render() {
+        console.log(this.props)
+    return (
         <div className="main-container">
+            <Admin
+                state={this.props.carsState}
+                changeView={this.props.changeView}
+                addCar={this.props.addCar}
+                removeCar={this.props.removeCar}
+            />
             <Authentication handleSignIn={this.props.handleSignIn}
                             updateAuthObject={this.props.updateAuthObject}
                             state={this.props.mainState}
                             changeView={this.props.changeView}
                             handleCreateAccount={this.props.handleCreateAccount}
-
+                            sayHello={this.props.sayHello}
             />
+            <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={this.props.changeAuthType}/>
 
             {
             this.props.mainState.view === 'home' ?
@@ -91,6 +99,7 @@ class App extends Component {
                                         state={this.props.mainState}
                                         changeView={this.props.changeView}
                                         handleCreateAccount={this.props.handleCreateAccount}
+                                        sayHello={this.props.sayHello}
 
                         />
                     :null
@@ -109,10 +118,10 @@ const mapStateToProps = (state) => {
         mainState: state.mainReducer,
         carsState: state.carsReducer
     }
-}
+};
 
-    const mapDispatchToProps = (dispatch) => {
-        return {
+const mapDispatchToProps = (dispatch) => {
+    return {
             changeView: (event) => {
                 dispatch(changeView(event))
             },
@@ -123,10 +132,6 @@ const mapStateToProps = (state) => {
 
             bookCar: (event) => {
                 dispatch(bookCar(event))
-            },
-
-            initialRender: () => {
-                dispatch:( initialRender())
             },
 
             addCar: (event) => {
@@ -153,13 +158,13 @@ const mapStateToProps = (state) => {
                 dispatch: (changeAuthType (event))
             },
 
-            sayHello: (event) => {
-                dispatch: (sayHello (event))
+            sayHello: () => {
+                dispatch: (sayHello ())
             }
 
 
-        };
-    }
+        }
+};
 
 
 

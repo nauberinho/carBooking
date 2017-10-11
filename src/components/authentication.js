@@ -6,6 +6,11 @@ import SignInOrSignUp from './SignInOrSignUp.js'
 
 
 export default class Authentication extends Component {
+
+    componentDidMount(){
+        console.log(this)
+
+    }
     render() {
         let state = this.props.state;
         let self = this;
@@ -13,7 +18,7 @@ export default class Authentication extends Component {
             <div>
             {state.auth.create === false && state.auth.signIn === false ?
 
-                <SignInOrSignUp changeView={this.props.changeView} changeAuthType={self.props.changeAuthType}/>
+                <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={self.props.changeAuthType}/>
 
                 :
 
@@ -41,7 +46,7 @@ export default class Authentication extends Component {
 
                                     </div>
                                     <button className="btn btn-lg btn-primary btn-block" onClick={self.props.handleCreateAccount}>Create account</button>
-                                    <button className="btn btn-lg btn-primary btn-block" onClick={this.props.sayHello}>Say Hello</button>
+                                    <button onClick={this.props.sayHello}>Say Hello</button>
 
                             </div>
 
