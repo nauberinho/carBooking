@@ -64,6 +64,13 @@ export function handleSignIn(event){
     }
 }
 
+export function handleSignOut(event){
+    return {
+        type: 'HANDLE_SIGN_OUT',
+        payload: event
+    }
+}
+
 export function handleCreateAccount(event){
 
     return {

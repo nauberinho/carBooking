@@ -18,31 +18,22 @@ var userSchema = mongoose.Schema({
 
 var Users = module.exports = mongoose.model('Users', userSchema);
 
-// Sign in and update user object if found by id
+// Sign in and update user object
 
-module.exports.signIn = function(_id, callback) {
-    Users.findById(_id, function (err, user) {
-        if (user) {
-            var userObject = user;
-            if (userObject.signedIn === false) {
-                userObject.signedIn = true;
-                console.log('signed in');
-            } else {
-                userObject.signedIn = false;
-                console.log('signed out');
-            }
-            Users.findOneAndUpdate(_id, userObject, callback);
-        }
-    })
+module.exports.signIn = function(username, bool, options,  callback) {
+
+    Users.findOneAndUpdate({username: username}, { $set: { signedIn: true }}, options, callback);
+
+}
+
+// Sign out and update user object
+module.exports.signOut = function(username, bool, options,  callback) {
+
+    Users.findOneAndUpdate({username: username}, { $set: { signedIn: false }}, options, callback);
+
 }
 
 // Add user
 module.exports.createUser = function(user, callback) {
     Users.create(user, callback);
-}
-
-
-// Get car by id
-module.exports.checkIfSignedIn = function(user, callback) {
-    Users.findOne({'username': user.username}, callback)
 }

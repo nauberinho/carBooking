@@ -23,6 +23,7 @@ function updateCars() {
 
 const carsReducer = (state = {
     cars: updateCars(),
+    filteredCars:[],
     carObject: "",
     display: false
 

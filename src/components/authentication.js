@@ -15,72 +15,70 @@ export default class Authentication extends Component {
         let state = this.props.state;
         let self = this;
         return (
-            <div>
-            {state.auth.create === false && state.auth.signIn === false ?
+            <div className="auth-container">
+                {state.auth.create === false && state.auth.signIn === false ?
 
-                <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={self.props.changeAuthType}/>
+                    <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={self.props.changeAuthType} state={this.props.state}/>
 
-                :
+                    :
 
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-3"></div>
-
-                        { state.auth.create === true ?
+                    <div className="container auth-div">
+                        <div className="row">
+                            <div className="col-sm-3"></div>
 
 
-                            <div className="col-sm-6">
+                            { state.auth.create === true ?
 
 
-                                    <h2 className="form-signin-heading">Create account</h2>
+                                <div className="col-sm-6">
+                                    <button className='btn-default col-sm-12' id={this.props.state.view} onClick={this.props.changeView}>Gå tillbaka</button>
+                                    <h3 className="auth-h2 darkred-text">Skapa konto</h3>
+                                    <input type="text" data-id="username" id="usernameInput" className="auth-form darkred-text col-sm-12"
+                                           placeholder="Username"
+                                           onKeyUp={this.props.updateAuthObject}/>
+                                    <input type="password" data-id="password" id="passwordInput" className="auth-form darkred-text col-sm-12"
+                                           placeholder="Password" onKeyUp={this.props.updateAuthObject}/>
+                                    Jag vill registrera mig som:
+                                    <div className="checkbox">
+                                        <input data-id="type" type="radio" name="name" value="user" onChange={this.props.updateAuthObject}/> Kund<br/>
+                                            <input data-id="type" type="radio" name="name" value="admin" onChange={this.props.updateAuthObject}/> Administratör<br/>
+                                        <input type="checkbox" value="remember-me"/> Kom ihåg mig
+                                    </div>
+                                    <button className="btn-default btn-block" onClick={self.props.handleCreateAccount}>Skapa konto</button>
+                                </div>
 
-                                    <input type="email" id="inputEmail" className="form-control"
+                                :
+
+
+                                <div className="col-sm-6">
+                                    <button className='btn-default col-sm-12' id={this.props.state.view} onClick={this.props.changeView}>Gå tillbaka</button>
+
+                                    <h2>Sign in</h2>
+
+                                    <input type="email" data-id="username" className="form-control"
                                            placeholder="Email address"
                                            autoFocus onKeyUp={this.props.updateAuthObject}/>
 
-                                    <input type="password" id="inputPassword" className="form-control"
+                                    <input type="password" data-id="password" className="form-control"
                                            placeholder="Password" onKeyUp={this.props.updateAuthObject}/>
                                     <div className="checkbox">
 
-                                            <input type="checkbox" value="remember-me"/> Remember me
+                                        <input type="checkbox" value="remember-me"/> Remember me
 
                                     </div>
-                                    <button className="btn btn-lg btn-primary btn-block" onClick={self.props.handleCreateAccount}>Create account</button>
-                                    <button onClick={this.props.sayHello}>Say Hello</button>
-
-                            </div>
-
-                            :
+                                    <button className="btn-default btn-block" onClick={self.props.handleSignIn}>Sign In</button>
 
 
-                            <div className="col-sm-6">
-                                <form className="form-signin" onSubmit={this.props.handleSignIn}
-                                      onChange={this.props.updateAuthObject}>
-                                    <h2 className="form-signin-heading">Sign In</h2>
-                                    <label className="sr-only">Username</label>
-                                    <input type="email" id="username" className="form-control"
-                                           placeholder="Email address" required
-                                           autoFocus/>
-                                    <label className="sr-only">Password</label>
-                                    <input type="password" id="password" className="form-control"
-                                           placeholder="Password" required/>
-                                    <div className="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="remember-me"/> Remember me
-                                        </label>
-                                    </div>
-                                    <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                                </form>
-                            </div>
-                        }
+                                </div>
+                            }
 
 
-                        <div className="col-sm-3"></div>
+                            <div className="col-sm-3"></div>
 
+                        </div>
                     </div>
-                </div>
 
-    }
+                }
 
 
 

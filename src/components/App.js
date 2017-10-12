@@ -5,7 +5,7 @@ import Home from './Home.js';
 import Book from './Book.js';
 import Admin from './Admin.js';
 import Authentication from './Authentication.js';
-import SignInOrSignUp from './SignInOrSignUp.js';
+
 
 
 import {
@@ -18,7 +18,7 @@ import {
     updateAuthObject,
     handleCreateAccount,
     changeAuthType,
-    sayHello
+    handleSignOut
 } from '../actions/commonActions.js';
 
 import {connect} from 'react-redux';
@@ -28,88 +28,67 @@ import React, { Component } from 'react';
 class App extends Component {
 
   render() {
-        console.log(this.props)
-    return (
-        <div className="main-container">
-            <Admin
-                state={this.props.carsState}
-                changeView={this.props.changeView}
-                addCar={this.props.addCar}
-                removeCar={this.props.removeCar}
-            />
-            <Authentication handleSignIn={this.props.handleSignIn}
-                            updateAuthObject={this.props.updateAuthObject}
-                            state={this.props.mainState}
-                            changeView={this.props.changeView}
-                            handleCreateAccount={this.props.handleCreateAccount}
-                            sayHello={this.props.sayHello}
-            />
-            <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={this.props.changeAuthType}/>
+      console.log(this.props)
+      return (
+          <div className="main-container container-fluid simplebar">
 
-            {
-            this.props.mainState.view === 'home' ?
-                <Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender}/>
+              {
+                  this.props.mainState.view === 'home' ?
+                      <Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender}/>
+                      :null
+              }
 
-
-                :null
-            }
+              {
+                  this.props.mainState.view === 'book'
+                      ?
+                      this.props.mainState.auth.user === true ?
+                          <Book bookCar={this.props.bookCar}
+                                updateCarChoice={this.props.updateCarChoice}
+                                state={this.props.carsState}
+                                changeView={this.props.changeView}
+                                handleSignOut={this.props.handleSignOut}
+                          />
+                          :
 
 
+                          <Authentication handleSignIn={this.props.handleSignIn}
+                                          updateAuthObject={this.props.updateAuthObject}
+                                          state={this.props.mainState}
+                                          changeView={this.props.changeView}
+                                          handleCreateAccount={this.props.handleCreateAccount}
+                                          sayHello={this.props.sayHello}
 
-            {
-                this.props.mainState.view === 'book'
-                    ?
-                        this.props.mainState.auth.user === true ?
-                            <Book bookCar={this.props.bookCar}
-                            updateCarChoice={this.props.updateCarChoice}
-                            state={this.props.carsState}
-                            changeView={this.props.changeView}
-                            />
-                            :
+                          />
+                      :null
+              }
 
-
-
-
-                                <Authentication handleSignIn={this.props.handleSignIn}
-                                                updateAuthObject={this.props.updateAuthObject}
-                                                state={this.props.mainState}
-                                                changeView={this.props.changeView}
-                                                handleCreateAccount={this.props.handleCreateAccount}
-                                                sayHello={this.props.sayHello}
-
-                                />
-                    :null
-            }
-
-            {
-                this.props.mainState.view === 'logIn'?
-                    this.props.mainState.auth.admin === true ?
-                    <Admin
-                        state={this.props.carsState}
-                        changeView={this.props.changeView}
-                        addCar={this.props.addCar}
-                        removeCar={this.props.removeCar}
-                    />
-                        :
+              {
+                  this.props.mainState.view === 'logIn'?
+                      this.props.mainState.auth.admin === true ?
+                          <Admin
+                              state={this.props.carsState}
+                              changeView={this.props.changeView}
+                              addCar={this.props.addCar}
+                              removeCar={this.props.removeCar}
+                              handleSignOut={this.props.handleSignOut}
+                          />
+                          :
 
 
+                          <Authentication handleSignIn={this.props.handleSignIn}
+                                          updateAuthObject={this.props.updateAuthObject}
+                                          state={this.props.mainState}
+                                          changeView={this.props.changeView}
+                                          handleCreateAccount={this.props.handleCreateAccount}
+                                          sayHello={this.props.sayHello}
 
-                        <Authentication handleSignIn={this.props.handleSignIn}
-                                        updateAuthObject={this.props.updateAuthObject}
-                                        state={this.props.mainState}
-                                        changeView={this.props.changeView}
-                                        handleCreateAccount={this.props.handleCreateAccount}
-                                        sayHello={this.props.sayHello}
-
-                        />
-                    :null
-            }
-
-
-        </div>
+                          />
+                      :null
+              }
+          </div>
 
 
-    );
+      );
   }
 }
 
@@ -135,31 +114,32 @@ const mapDispatchToProps = (dispatch) => {
             },
 
             addCar: (event) => {
-                dispatch: ( addCar(event))
+                dispatch( addCar(event))
             },
 
             removeCar: (event) => {
-                dispatch: ( removeCar(event))
+                dispatch( removeCar(event))
             },
 
             handleSignIn: (event) => {
-                dispatch: (handleSignIn (event))
+                dispatch(handleSignIn (event))
             },
 
             updateAuthObject: (event) => {
-                dispatch: (updateAuthObject (event))
+                dispatch(updateAuthObject (event))
             },
 
             handleCreateAccount: (event) => {
-                dispatch: (handleCreateAccount (event))
+                dispatch(handleCreateAccount (event))
             },
 
             changeAuthType: (event) => {
-                dispatch: (changeAuthType (event))
+                dispatch(changeAuthType (event))
             },
 
-            sayHello: () => {
-                dispatch: (sayHello ())
+            handleSignOut: (event) => {
+
+                dispatch(handleSignOut(event))
             }
 
 

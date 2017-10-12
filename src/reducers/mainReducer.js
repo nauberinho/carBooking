@@ -2,10 +2,9 @@
  * Created by naube on 2017-09-28.
  */
 
-function updateUser() {
+function updateUser(user) {
     var req = new XMLHttpRequest;
-    var user = {};
-    req.open('GET', "http://localhost:7000/api/cars/signin:id");
+    req.open('GET', "http://localhost:7000/api/cars/signin?id=" + user);
     req.send();
     req.onreadystatechange = function () {
         console.log('onreadystatechange')
@@ -24,8 +23,14 @@ const mainReducer = (state = {
     auth: {
         user: false,
         admin: false,
-        authObject: {},
-        create: true,
+        authObject: {
+            username: "",
+            password: "",
+            signedIn: false,
+            type: ""
+
+        },
+        create: false,
         signIn: false
     },
 
@@ -34,17 +39,56 @@ const mainReducer = (state = {
     switch(action.type){
 
         case 'HANDLE_SIGN_IN':
-            action.payload.preventDefault();
             let pushSubmit = new XMLHttpRequest();
-            pushSubmit.open('POST', 'http://localhost:7000/api/cars/signin', true);
+            pushSubmit.open('POST', 'http://localhost:7000/api/signin', true);
             pushSubmit.setRequestHeader("Content-Type", "application/json");
             pushSubmit.send(JSON.stringify(newState.auth.authObject));
-            setTimeout(function(){
-                pushSubmit.open('GET', 'http://localhost:7000/api/cars/signin', true);
-                pushSubmit.setRequestHeader("Content-Type", "application/json");
-                pushSubmit.send(JSON.stringify(newState.auth.authObject));
-            }, 200)
+            pushSubmit.onreadystatechange = function () {
+                console.log('onreadystatechange')
+                if (this.readyState === 4 && this.status === 200) {
 
+                        let user = JSON.parse( pushSubmit.response);
+                        newState.auth.authObject = user;
+                        if(user.type === "admin"){
+                            newState.auth.admin = true;
+                            newState.auth.user = true;
+                        }
+                        else if(user.type === "user"){
+                            newState.auth.admin = false;
+                            newState.auth.user = true;
+                        }
+                        console.log(user)
+
+                }
+            }
+            return newState;
+
+        case 'HANDLE_SIGN_OUT':
+            let signOutReq = new XMLHttpRequest();
+            signOutReq.open('POST', 'http://localhost:7000/api/signout', true);
+            signOutReq.setRequestHeader("Content-Type", "application/json");
+            signOutReq.send(JSON.stringify(newState.auth.authObject));
+            signOutReq.onreadystatechange = function () {
+                console.log('onreadystatechange')
+                if (this.readyState === 4 && this.status === 200) {
+
+                        let user = JSON.parse( signOutReq.response);
+                        newState.auth.authObject = {
+                        username: "",
+                            password: "",
+                            signedIn: false,
+                            type: ""
+
+                    };
+
+                            newState.auth.admin = false;
+                            newState.auth.user = false;
+                            newState.view = "home"
+
+
+
+                }
+            }
             return newState;
 
         case 'CHANGE_VIEW':
@@ -65,6 +109,8 @@ const mainReducer = (state = {
 
             if(action.payload.target.getAttribute('data-id') !== 'signIn' && action.payload.target.getAttribute('data-id') !== 'create') {
                 newState = {...newState, view: action.payload.target.id};
+                newState.auth.signIn = false;
+                newState.auth.create = false;
             }
             return newState;
 
@@ -73,7 +119,7 @@ const mainReducer = (state = {
         case 'HANDLE_CREATE_ACCOUNT':
             action.payload.preventDefault();
             let create = new XMLHttpRequest();
-            create.open('POST', 'http://localhost:7000/api/cars/add', true);
+            create.open('POST', 'http://localhost:7000/api/cars/createaccount', true);
             create.setRequestHeader("Content-Type", "application/json");
             create.send(JSON.stringify(newState.auth.authObject));
 
@@ -81,7 +127,7 @@ const mainReducer = (state = {
 
         case 'UPDATE_AUTH_OBJECT':
             console.log('updating')
-            newState.auth.authObject[action.payload.target.id] = action.payload.target.id;
+            newState.auth.authObject[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
 
             return newState;
 

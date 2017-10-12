@@ -38,26 +38,38 @@ app.post('/api/cars/createaccount', function(req, res) {
     });
 });
 
-// ----- Sign in by id ----- //
-app.post('/api/cars/signin', function(req, res) {
-    console.log('trying to sign in')
-    var _id = req.body.id;
-    Users.signIn(_id, function(err, user) {
-        user ? console.log('You are signed in! : ' + car) : (err) => {
-            throw err
-            console.log('user not found')
-        };
-    })
-})
+// ----- Sign in by username----- //
+app.post('/api/signin', function(req, res) {
+    var userObject = req.body;
+    console.log(userObject)
+    console.log("  = userObject")
+                let bool = true;
+                console.log('signed in: ');
+                console.log(userObject);
+                Users.signIn(userObject.username, bool, {}, function (err, user) {
+                    user ?
+                        res.json(user)
+                        : (err) => {
+                            throw err
 
-//----Return signed in user-----//
-app.get('/api/cars/signin', function(req, res) {
-    var user = req.body;
-    Users.checkIfSignedIn(user, function(err, success) {
-        // If successful, return json data, else throw error;
-        success ? res.json(success) : (err) => {throw err};
-    });
+                        };
+                })
 });
+
+// ----- Sign out by username ----- //
+app.post('/api/signout', function(req, res) {
+    var userObject = req.body;
+    let bool = false;
+    Users.signOut(userObject.username, bool, {}, function (err, user) {
+        user ?
+            res.json(user)
+            : (err) => {
+                throw err
+
+            };
+    })
+});
+
 
 // ----- Load car model ----- //
 var Cars = require('./models/car.js');

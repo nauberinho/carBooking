@@ -21,7 +21,9 @@ export default class Book extends Component {
 
             return (
                 <div key={key} className="book-li-wrapper col-xs-12">
+
                     <div className="col-sm-2"></div>
+
                     <div className="book-li-car-properties col-sm-4">
                         <div className="col-xs-12 col-sm-12 book-li" data-id={car._id} onClick={this.props.bookCar}>
                             <div className="col-xs-4">Märke: {car.brand}</div>
@@ -47,10 +49,13 @@ export default class Book extends Component {
             <div className="book-container">
 
                 <button className='btn-default' id='home' onClick={this.props.changeView}>Gå tillbaka</button>
+                <button className='red-text' onClick={this.props.handleSignOut}>Logga ut</button>
                 <div className="book-ul">
-                    <div className="col-xs-12 book-ul-title"><h6>Cars to book</h6></div>
+                    <div className="col-xs-12 book-ul-title"><h6>Bilar att boka</h6></div>
                     {mapList}
                 </div>
+
+
             </div>
 )
 }

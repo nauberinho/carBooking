@@ -77,6 +77,7 @@ removeCar(event) {
 
         return(
             <div>
+                <button className='red-text' onClick={this.props.handleSignOut}>Logga ut</button>
                 <button className='btn-default' id='home' onClick={this.props.changeView}>Gå tillbaka</button>
 
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
@@ -106,6 +107,7 @@ removeCar(event) {
                 <ul>
                     {carsList}
                 </ul>
+
             </div>
         )
     }
