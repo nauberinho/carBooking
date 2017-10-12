@@ -1,6 +1,3 @@
-/**
- * Created by naube on 2017-09-28.
- */
 
 export function changeView (event){
     return {
@@ -9,7 +6,25 @@ export function changeView (event){
     }
 }
 
+export function filter(event){
+    return {
+        type: 'FILTER',
+        payload: event
+    }
+}
 
+export function filterAll(event){
+    return {
+        type: 'FILTER_ALL',
+        payload: event
+    }
+}
+
+export function updateCarsList() {
+    return {
+        type: 'UPDATE_CARS_LIST'
+    }
+}
 
 export function changeAuthType (event){
 
@@ -27,6 +42,13 @@ export function bookCar(event){
     }
 }
 
+export function unBookCar(event){
+    return {
+        type: 'BOOK_CAR',
+        payload: event
+    }
+}
+
 export function updateCarChoice(event){
     return {
         type: 'UPDATE_CAR_CHOICE',
@@ -34,19 +56,25 @@ export function updateCarChoice(event){
     }
 }
 
-
-
-export function addCar(event){
+export function addCar(car){
     return {
         type: 'ADD_CAR',
-        payload: event
+        payload: car
     }
 }
 
-export function removeCar(event){
+export function editCar(car, id) {
     return {
-        type: 'ADD_CAR',
-        payload: event
+        type: 'EDIT_CAR',
+        car: car,
+        id: id
+    }
+}
+
+export function removeCar(id){
+    return {
+        type: 'REMOVE_CAR',
+        payload: id
     }
 }
 
@@ -63,6 +91,8 @@ export function handleSignIn(event){
         payload: event
     }
 }
+
+
 
 export function handleSignOut(event){
     return {

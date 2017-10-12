@@ -4,13 +4,14 @@ var mongoose = require('mongoose');
 // ----- Init app ----- //
 var app = express();
 
-//  ----- Init database connection -----//
-mongoose.connect('mongodb://localhost/rentalCars', {useMongoClient:true});
 app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+//  ----- Init database connection -----//
+mongoose.connect('mongodb://localhost/rentalCars', {useMongoClient:true});
 var db = mongoose.connection;
 
 // ----- Make app use body query parser ----- //
@@ -71,6 +72,8 @@ app.post('/api/signout', function(req, res) {
 });
 
 
+
+
 // ----- Load car model ----- //
 var Cars = require('./models/car.js');
 
@@ -84,6 +87,21 @@ app.get('/api/cars', function(req, res) {
         // If successful, return json data, else throw error;
         success ? res.json(success) : (err) => {throw err};
     });
+});
+
+
+// ----- Filter avaliable cars ----- //
+app.post('/api/cars/filter', function(req, res) {
+    var conditions = req.body.conditions;
+    console.log(conditions);
+    console.log("  = condition");
+    Cars.filterCars(conditions, function (err, user) {
+        user ?
+            res.json(user)
+            : (err) => {
+                throw err
+            };
+    })
 });
 
 app.get('/api/cars:_id', function(req, res) {
@@ -117,31 +135,33 @@ app.post('/api/cars/remove', function(req, res) {
     })
 })
 
-// ----- Update a car by id ----- //
-
-app.put('/api/cars', function(req, res) {
-    var _id = req.query.id;
-    console.log('found car')
-    Cars.getCarById(_id, function(err, success) {
-        console.log('before update')
-        if(success) {
-            success.status = true;
-            Cars.updateCar(_id, success, {}, function (err, success) {
-                success ? console.log('Updated Car! : ' + success) : (err) => {
-                    throw err
-                };
-            })
-        }
-    });
-});
-
 // ----- Book a car by id ----- //
 app.post('/api/cars/book', function(req, res) {
-    var _id = req.query.id;
-    Cars.bookCar(_id, function(err, car) {
+    var _id = req.body.id;
+    Cars.bookCar(_id, {},{}, function(err, car) {
         car ? console.log('Booked car! : ' + car) : (err) => {
             throw err
         };
+    })
+})
+
+app.post('/api/cars/unbook', function(req, res) {
+    var _id = req.body.id;
+    console.log(_id)
+    Cars.unBookCar(_id, {},{}, function(err, car) {
+        car ? console.log('Unbooked car! : ' + car) : (err) => {
+            console.log('something wnt wrong')
+    }})
+})
+
+// ----- Update a car by id ----- //
+app.post('/api/cars/update', function(req, res) {
+    var _id = req.query.id;
+    var car = req.body;
+    Cars.updateCar(_id, car, {}, function(err, success) {
+        success ? console.log('Updated: ' + success) : (err) => {
+            throw err
+        }
     })
 })
 

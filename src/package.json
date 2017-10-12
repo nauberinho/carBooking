@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "chrome": "^0.1.0",
-    "socket.io": "^2.0.3"
-  }
-}

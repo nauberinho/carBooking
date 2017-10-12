@@ -12,13 +12,18 @@ import {
     changeView,
     updateCarChoice,
     bookCar,
+    editCar,
     addCar,
     removeCar,
     handleSignIn,
     updateAuthObject,
     handleCreateAccount,
     changeAuthType,
-    handleSignOut
+    handleSignOut,
+    updateCarsList,
+    filter,
+    filterAll,
+    unBookCar
 } from '../actions/commonActions.js';
 
 import {connect} from 'react-redux';
@@ -43,10 +48,14 @@ class App extends Component {
                       ?
                       this.props.mainState.auth.user === true ?
                           <Book bookCar={this.props.bookCar}
+                                unBookCar={this.props.unBookCar}
+                                updateCarsList={this.props.updateCarsList}
                                 updateCarChoice={this.props.updateCarChoice}
                                 state={this.props.carsState}
                                 changeView={this.props.changeView}
                                 handleSignOut={this.props.handleSignOut}
+                                filter={this.props.filter}
+                                filterAll={this.props.filterAll}
                           />
                           :
 
@@ -70,6 +79,8 @@ class App extends Component {
                               changeView={this.props.changeView}
                               addCar={this.props.addCar}
                               removeCar={this.props.removeCar}
+                              editCar={this.props.editCar}
+                              updateCarsList={this.props.updateCarsList}
                               handleSignOut={this.props.handleSignOut}
                           />
                           :
@@ -105,6 +116,18 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(changeView(event))
             },
 
+            filter: (event) => {
+              dispatch(filter(event))
+            },
+
+            filterAll: (event) => {
+               dispatch(filterAll(event))
+            },
+
+            updateCarsList: () => {
+                dispatch(updateCarsList())
+            },
+
             updateCarChoice: (event) => {
                 dispatch(updateCarChoice(event))
             },
@@ -113,9 +136,18 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(bookCar(event))
             },
 
+            unBookCar: (event) => {
+            dispatch(unBookCar(event))
+             },
+
             addCar: (event) => {
                 dispatch( addCar(event))
             },
+
+            editCar: (car, id) => {
+            dispatch(editCar(car, id))
+            },
+
 
             removeCar: (event) => {
                 dispatch( removeCar(event))

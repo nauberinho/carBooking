@@ -116,6 +116,7 @@ ul{
 .book-ul{
     width: 100%;
     height: 100%;
+
 }
     .book-ul-title{
         font-family: 'News Cycle', sans-serif;
@@ -133,30 +134,134 @@ font-family: 'News Cycle', sans-serif;
         list-style-type: none;
         border-bottom: 1px solid lightgrey;
     }
-        .book-li-car-properties{
 
-            heigth: 100%;
+    .book-li{
+
+        display: flex;
+        flex-direction: row;
+    }
+
+
+
+.info-div{
+    padding-left: 25%;
+    height: 100%;
+
+
+}
+.book-li-img-div{
+    max-height: 80%;
+    margin: auto;
+    max-width: 30%;
+    display: flex;
+    flex-direction: row;
+}
+
+.book-li-img{
+    width: 100%;
+}
+.book-header{
+    height: 20%;
+
+    display: flex;
+    font-size: 1.4em;
+    font-family: 'News Cycle', sans-serif;
+    font-weight: 700;
+}
+
+
+.filter-div{
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    background-color: #333333;
+
+}
+
+.filter-option {
+    font-family: 'News Cycle', sans-serif;
+    font-weight: 700;
+    color: #efefef;
+    margin: auto;
+    margin-left: 2%;
+    cursor: pointer;
+
+}
+
+
+    @media screen and (max-width: 899px){
+
+        .filter-div{
+            font-size: 0.8em;
+            overflow-x: auto;
+
+        }
+
+
+        .book-li-wrapper{
+            font-family: 'News Cycle', sans-serif;
+            font-weight: 700;
             display: flex;
             flex-direction: column;
-            flex-wrap: wrap;
-            align-content: center;
+
+            height: 70%;
+
+        }
+
+        .book-li{
+            display: flex;
+            flex-direction: column;
+            font-size: 0.6em;
+            height: 100vh;
+        }
+
+        .info-div{
+            height: 50%;
+            font-size: 2em;
+
+
+        }
+
+        .book-li-img-div{
+            height: 40%;
+            margin: auto;
+            margin-top: -25%;
+            max-width: 100%;
+        }
+    }
+
+
+        .book-logo{
+             height: 100%;
+            margin: auto;
+            text-align: center;
             padding-top: 2%;
-        }
-        .img-div{
-            height: 30%;
-            width: 30%;
+
+            align-content: center;
+            text-align: center;
 
         }
-            .img-div img{
-                max-height: 200%;
-                max-width: 200%;
-                margin-top: 5%;
-            }
+
+        .book-go-back{
+
+           align-content: center;
+            text-align: center;
+            margin: 0;
+            height: 100%;
+
+
+        }
+
+        .book-log-out{
 
 
 
+            color: red;
+            background-color: none;
+            border-bottom: 1px solid darkred;
+            margin: 0;
 
-
+        }
 
 
 
@@ -234,6 +339,17 @@ width: 100%;
 
         }
 
+        .log-out{
+            position: absolute;
+            top: 0%;
+            right: 5%;
+            color: red;
+            background-color: none;
+            border: none;
+            border-bottom: 1px solid darkred;
+
+        }
+
 
 
 /* Animations*/
@@ -272,4 +388,86 @@ width: 100%;
 .lightblue-text{
     color: #35a3f2;
 
+}
+
+
+.orange-text{
+    color: orange;
+}
+
+
+
+
+
+
+
+
+
+/*Admin section*/
+
+
+
+
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding:2px;
+  margin-bottom:4px;
+} 
+
+label {
+    color:#333 !important;
+    font-size:13px;
+    font-weight:600;
+    border:2px solid #333;
+}
+
+#fields #formField, #fields #objectField {
+    min-height:100%;
+}
+
+.card {
+    margin-bottom:20px;
+    padding:10px;
+}
+
+.card .card-text {
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:5px;
+}
+
+.card .card-title {
+    padding:10px;
+}
+
+#form_overlay {
+    background-color:rgba(0,0,0,0.3);
+    border:2px solid #333;
+    z-index:1000;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100vw;
+    height:100vh;
+    overflow-y:scroll;
+}
+
+#form_overlay form {
+    max-width:500px;
+    margin:auto;
+}
+
+body {
+    overflow-x:hidden;
+}
+
+.valign-helper {
+    position:relative;
+    top:50px;
+}
+
+.text-bold {
+    font-weight:700;
 }
