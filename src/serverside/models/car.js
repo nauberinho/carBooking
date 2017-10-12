@@ -3,8 +3,6 @@
 // Load mongo module
 var mongoose = require('mongoose');
 
-
-
 // Car object schema
 var carSchema = mongoose.Schema({
     fordonstyp:String,
@@ -39,39 +37,34 @@ module.exports.addCar = function(data, callback) {
     Cars.create(data, callback);
 }
 
-// Update car
-module.exports.updateCar = function(_id, car, options, callback) {
-    var update = {
-        fordonstyp: car.fordonstyp,
-        requiredDrivingLicense: car.requiredDrivingLicense,
-        brand: car.brand,
-        model: car.model,
-        year: car.year,
-        gearbox: car.gearbox,
-        dagshyra: car.dagshyra,
-        fuel: car.fuel,
-        imgLink: car.imgLink,
-        status: car.status
-    }
-    Cars.findOneAndUpdate(_id, update, options, callback);
+// Filter cars by brand
+module.exports.filterCars = function(condition, callback) {
+    Cars.find({'brand': condition}, callback);
 }
 
+// Update car
+module.exports.updateCar = function(_id, car, options, callback) {
+    Cars.findOneAndUpdate({_id:_id}, car, options, callback);
+}
+
+// Remove Car
 module.exports.removeCar = function(_id, callback) {
     Cars.findByIdAndRemove(_id, callback);
 };
 
-module.exports.bookCar = function(_id, callback) {
-    Cars.findById(_id, function (err, car) {
-        if (car) {
-            var carToChange = car;
-            if (car.status === true) {
-                carToChange.status = false;
-                console.log('trying to UNBOOK...');
-            } else {
-                carToChange.status = true;
+// Book Car
+module.exports.bookCar = function(_id, car, options, callback) {
+    Cars.findById(_id, function(err, success){
+        if(success) {
+            var dbCar = success;
+            if (success.status === true) {
+                dbCar.status = false;
                 console.log('trying to BOOK...');
+            } else {
+                dbCar.status = true;
+                console.log('trying to UNBOOK...');
             }
-            Cars.findOneAndUpdate(_id, carToChange, callback);
+            Cars.findOneAndUpdate({_id:_id}, dbCar, options, callback);
         }
-    })
+    });
 }

@@ -16,5 +16,5 @@ export default createStore(
         carsReducer,
         logInReducer
     }),
-    applyMiddleware(createLogger())
+    applyMiddleware(/*createLogger()*/)
 );

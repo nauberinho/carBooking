@@ -9,7 +9,18 @@ export function changeView (event){
     }
 }
 
+export function filter(event){
+    return {
+        type: 'FILTER',
+        payload: event
+    }
+}
 
+export function updateCarsList() {
+    return {
+        type: 'UPDATE_CARS_LIST'
+    }
+}
 
 export function changeAuthType (event){
 
@@ -63,6 +74,8 @@ export function handleSignIn(event){
         payload: event
     }
 }
+
+
 
 export function handleSignOut(event){
     return {

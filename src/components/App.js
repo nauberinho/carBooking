@@ -18,7 +18,9 @@ import {
     updateAuthObject,
     handleCreateAccount,
     changeAuthType,
-    handleSignOut
+    handleSignOut,
+    updateCarsList,
+    filter
 } from '../actions/commonActions.js';
 
 import {connect} from 'react-redux';
@@ -43,10 +45,12 @@ class App extends Component {
                       ?
                       this.props.mainState.auth.user === true ?
                           <Book bookCar={this.props.bookCar}
+                                updateCarsList={this.props.updateCarsList}
                                 updateCarChoice={this.props.updateCarChoice}
                                 state={this.props.carsState}
                                 changeView={this.props.changeView}
                                 handleSignOut={this.props.handleSignOut}
+                                filter={this.props.filter}
                           />
                           :
 
@@ -69,6 +73,7 @@ class App extends Component {
                               state={this.props.carsState}
                               changeView={this.props.changeView}
                               addCar={this.props.addCar}
+                              updateCarsList={this.props.updateCarsList}
                               removeCar={this.props.removeCar}
                               handleSignOut={this.props.handleSignOut}
                           />
@@ -103,6 +108,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
             changeView: (event) => {
                 dispatch(changeView(event))
+            },
+
+            filter: (event) => {
+              dispatch(filter(event))
+            },
+
+            updateCarsList: () => {
+                dispatch(updateCarsList())
             },
 
             updateCarChoice: (event) => {

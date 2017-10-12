@@ -1,14 +1,45 @@
-/**
- * Created by naube on 2017-09-28.
- */
-
-
 import React, { Component } from 'react';
 
 export default class Book extends Component {
     render(){
 
-        let carList = this.props.state.cars;
+        let optionsList = [];
+
+        for(var car in this.props.state.cars){
+            optionsList.push(this.props.state.cars[car].brand)
+        }
+
+
+        let allBrands = [];
+        for(let i = 0; i<optionsList.length; i++){
+            // If it is not a duplicate, return true
+            if (allBrands.includes(optionsList[i]) === false) {
+                allBrands.push(optionsList[i]);
+                console.log(optionsList[i]);
+            }
+        };
+
+        console.log(allBrands)
+
+        let finalOptionsList = allBrands.map((car, key) => {
+            return(
+
+                <option key={key} value={car}>{car}</option>
+
+            )
+
+        });
+
+        let carList;
+        if(this.props.state.filteredCars.length > 0){
+
+            carList = this.props.state.filteredCars;
+        }
+
+        else {
+
+            carList = this.props.state.cars;
+        }
 
 
         let mapList = carList.map((car, key) => {
@@ -50,6 +81,11 @@ export default class Book extends Component {
 
                 <button className='btn-default' id='home' onClick={this.props.changeView}>Gå tillbaka</button>
                 <button className='red-text' onClick={this.props.handleSignOut}>Logga ut</button>
+                <select onChange={this.props.filter}>
+                    {finalOptionsList}
+
+
+                </select>
                 <div className="book-ul">
                     <div className="col-xs-12 book-ul-title"><h6>Bilar att boka</h6></div>
                     {mapList}

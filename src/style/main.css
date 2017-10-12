@@ -273,3 +273,85 @@ width: 100%;
     color: #35a3f2;
 
 }
+
+
+.orange-text{
+    color: orange;
+}
+
+
+
+
+
+
+
+
+
+/*Admin section*/
+
+
+
+
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding:2px;
+  margin-bottom:4px;
+} 
+
+label {
+    color:#333 !important;
+    font-size:13px;
+    font-weight:600;
+    border:2px solid #333;
+}
+
+#fields #formField, #fields #objectField {
+    min-height:100%;
+}
+
+.card {
+    margin-bottom:20px;
+    padding:10px;
+}
+
+.card .card-text {
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:5px;
+}
+
+.card .card-title {
+    padding:10px;
+}
+
+#form_overlay {
+    background-color:rgba(0,0,0,0.3);
+    border:2px solid #333;
+    z-index:1000;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100vw;
+    height:100vh;
+    overflow-y:scroll;
+}
+
+#form_overlay form {
+    max-width:500px;
+    margin:auto;
+}
+
+body {
+    overflow-x:hidden;
+}
+
+.valign-helper {
+    position:relative;
+    top:50px;
+}
+
+.text-bold {
+    font-weight:700;
+}

@@ -40,9 +40,8 @@ const mainReducer = (state = {
 
         case 'HANDLE_SIGN_IN':
             let pushSubmit = new XMLHttpRequest();
-            pushSubmit.open('POST', 'http://localhost:7000/api/signin', true);
+            pushSubmit.open('POST', 'http://localhost:7000/api/signin', false);
             pushSubmit.setRequestHeader("Content-Type", "application/json");
-            pushSubmit.send(JSON.stringify(newState.auth.authObject));
             pushSubmit.onreadystatechange = function () {
                 console.log('onreadystatechange')
                 if (this.readyState === 4 && this.status === 200) {
@@ -61,13 +60,14 @@ const mainReducer = (state = {
 
                 }
             }
+
+            pushSubmit.send(JSON.stringify(newState.auth.authObject));
             return newState;
 
         case 'HANDLE_SIGN_OUT':
             let signOutReq = new XMLHttpRequest();
-            signOutReq.open('POST', 'http://localhost:7000/api/signout', true);
+            signOutReq.open('POST', 'http://localhost:7000/api/signout', false);
             signOutReq.setRequestHeader("Content-Type", "application/json");
-            signOutReq.send(JSON.stringify(newState.auth.authObject));
             signOutReq.onreadystatechange = function () {
                 console.log('onreadystatechange')
                 if (this.readyState === 4 && this.status === 200) {
@@ -89,6 +89,8 @@ const mainReducer = (state = {
 
                 }
             }
+            signOutReq.send(JSON.stringify(newState.auth.authObject));
+
             return newState;
 
         case 'CHANGE_VIEW':
@@ -119,7 +121,7 @@ const mainReducer = (state = {
         case 'HANDLE_CREATE_ACCOUNT':
             action.payload.preventDefault();
             let create = new XMLHttpRequest();
-            create.open('POST', 'http://localhost:7000/api/cars/createaccount', true);
+            create.open('POST', 'http://localhost:7000/api/cars/createaccount', false);
             create.setRequestHeader("Content-Type", "application/json");
             create.send(JSON.stringify(newState.auth.authObject));
 
