@@ -1,19 +1,8 @@
-/**
- * Created by naube on 2017-10-10.
- */
+
 import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js'
 
-
 export default class Authentication extends Component {
-
-    componentDidMount(){
-        console.log(this)
-
-    }
-    render() {
-        let state = this.props.state;
-        let self = this;
         return (
             <div className="auth-container">
                 {state.auth.create === false && state.auth.signIn === false ?
