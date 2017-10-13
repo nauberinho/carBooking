@@ -1,16 +1,12 @@
-
-
 import '../style/main.css';
 import Home from './Home.js';
 import Book from './Book.js';
 import Admin from './Admin.js';
 import Authentication from './Authentication.js';
-
-
+import AuthNeeded from './AuthNeeded.js';
 
 import {
     changeView,
-    updateCarChoice,
     bookCar,
     editCar,
     addCar,
@@ -39,7 +35,7 @@ class App extends Component {
 
               {
                   this.props.mainState.view === 'home' ?
-                      <Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender}/>
+                      <Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender} handleSignOut={this.props.handleSignOut}/>
                       :null
               }
 
@@ -72,7 +68,7 @@ class App extends Component {
               }
 
               {
-                  this.props.mainState.view === 'logIn'?
+                  this.props.mainState.view === 'logIn' ?
                       this.props.mainState.auth.admin === true ?
                           <Admin
                               state={this.props.carsState}
@@ -86,16 +82,40 @@ class App extends Component {
                           :
 
 
-                          <Authentication handleSignIn={this.props.handleSignIn}
-                                          updateAuthObject={this.props.updateAuthObject}
-                                          state={this.props.mainState}
-                                          changeView={this.props.changeView}
-                                          handleCreateAccount={this.props.handleCreateAccount}
-                                          sayHello={this.props.sayHello}
+                          this.props.mainState.auth.user === true ?
 
-                          />
-                      :null
+                              <AuthNeeded
+                                  changeView={this.props.changeView}
+                                  handleSignOut={this.props.handleSignOut}
+                              />
+
+
+                              :
+
+
+
+
+
+                   this.props.mainState.auth.user === false && this.props.mainState.auth.admin === false ?
+
+                      <Authentication handleSignIn={this.props.handleSignIn}
+                                      updateAuthObject={this.props.updateAuthObject}
+                                      state={this.props.mainState}
+                                      changeView={this.props.changeView}
+                                      handleCreateAccount={this.props.handleCreateAccount}
+                                      sayHello={this.props.sayHello}
+
+                      />
+
+                      : null
+
+
+                      : null
+
               }
+
+
+
           </div>
 
 
@@ -126,10 +146,6 @@ const mapDispatchToProps = (dispatch) => {
 
             updateCarsList: () => {
                 dispatch(updateCarsList())
-            },
-
-            updateCarChoice: (event) => {
-                dispatch(updateCarChoice(event))
             },
 
             bookCar: (event) => {

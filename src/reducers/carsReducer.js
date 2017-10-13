@@ -33,12 +33,7 @@ const carsReducer = (state = {
     let newState = state;
     switch(action.type){
 
-
-        case 'UPDATE_CAR_CHOICE':
-            newState.carId = action.payload.target.value;
-            return newState;
-
-        case 'BOOK_CAR':
+        case 'BOOK_CAR': // The clicked button contains a data-id with a car's unique id. This id is then sent to the database which modifies a car based in the id.//
             console.log('in book car');
             var carId = action.payload.target.getAttribute('data-id');
             let bookReq = new XMLHttpRequest;
@@ -46,7 +41,7 @@ const carsReducer = (state = {
             bookReq.setRequestHeader("Content-Type", "application/json");
             bookReq.send(JSON.stringify({id: carId}));
 
-        case 'UNBOOK_CAR':
+        case 'UNBOOK_CAR': // The clicked button contains a data-id with a car's unique id. This id is then sent to the database which modifies a car based in the id.//
             console.log('unbooking');
             var carId1 = action.payload.target.getAttribute('data-id');
             console.log(carId1)
@@ -57,8 +52,8 @@ const carsReducer = (state = {
 
             return newState;
 
-        case 'FILTER':
-        let filteredList
+        case 'FILTER': // Takes two data-attributes which is the category (ex. fuel) and value (ex. bensin) and that data to the database, which then does a find method.//
+        let filteredList;
             let conditions = {category: action.payload.target.getAttribute('data-category'), value: action.payload.target.getAttribute('data-value')};
             console.log(action.payload.target.getAttribute('data-value'));
             let filterReq = new XMLHttpRequest();
@@ -80,12 +75,12 @@ const carsReducer = (state = {
             filterReq.send(JSON.stringify({conditions: conditions}));
             return newState;
 
-        case 'FILTER_ALL':
+        case 'FILTER_ALL': // Makes filterCategory an empty array whereby all cars will be rendered. //
             newState.filterCategory = "";
             newState.filteredCars = [];
             return newState;
 
-        case 'UPDATE_CARS_LIST':
+        case 'UPDATE_CARS_LIST': // Is used after updating the database. It updates state which makes the components re-render. //
 
             newState.cars = updateCars();
 

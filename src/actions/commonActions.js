@@ -49,13 +49,6 @@ export function unBookCar(event){
     }
 }
 
-export function updateCarChoice(event){
-    return {
-        type: 'UPDATE_CAR_CHOICE',
-        payload: event
-    }
-}
-
 export function addCar(car){
     return {
         type: 'ADD_CAR',

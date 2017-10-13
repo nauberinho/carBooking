@@ -81,6 +81,17 @@ ul{
 
     }
 
+    .home-log-out {
+
+        color: red;
+        background-color: none;
+        border-bottom: 1px solid darkred;
+        margin: auto;
+        margin-top: 10%;
+        width: 20%;
+
+    }
+
     @media screen and (max-width: 899px){
 
 
@@ -174,7 +185,7 @@ font-family: 'News Cycle', sans-serif;
     font-size: 1.4em;
     font-family: 'News Cycle', sans-serif;
     font-weight: 700;
-    
+
 }
 
 
@@ -356,6 +367,19 @@ width: 100%;
             background-color: none;
             border: none;
             border-bottom: 1px solid darkred;
+
+        }
+
+        .auth-needed-message{
+            font-size: 1.3em;
+            font-weight: 700;
+            font-family: 'News Cycle', sans-serif;
+            margin: auto;
+            height: 50%;
+            width: 80%;
+            text-align: center;
+            margin-top: 10%;
+
 
         }
 

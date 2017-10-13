@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js'
 
 export default class Authentication extends Component {
+    render(){
+        let state = this.props.state;
+        let self = this;
         return (
             <div className="auth-container">
                 {state.auth.create === false && state.auth.signIn === false ?
