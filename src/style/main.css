@@ -243,7 +243,7 @@ font-family: 'News Cycle', sans-serif;
         }
 
         .book-li-img-div{
-            height: 40%;
+            max-height: 30%;
             margin: auto;
             margin-top: -25%;
             max-width: 100%;
