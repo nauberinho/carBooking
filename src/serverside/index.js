@@ -1,9 +1,12 @@
+
+// ----- Load dependencies ----- //
 var express = require('express');
 var mongoose = require('mongoose');
 
 // ----- Init app ----- //
 var app = express();
 
+// ----- Make use of access-control-allow-origin to prevent CORS-error ----- //
 app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -20,12 +23,15 @@ var jsonParser = bodyParser.json({ type: 'application/json' });
 app.use(jsonParser);
 
 // ----- Load user model ----- //
-
 var Users = require('./models/user.js')
+// ----- Load car model ----- //
+var Cars = require('./models/car.js');
 
-// ------------------ //
+
+
+// ----------------------- //
 // ----- Auth Routes ----- //
-// ------------------ //
+// ----------------------- //
 
 
 // ------Create user account------ //
@@ -34,7 +40,7 @@ app.post('/api/cars/createaccount', function(req, res) {
     console.log('trying to add user: ' + user)
     Users.createUser(user, function(err, success) {
         console.log("added user: " + success)
-        // If successful, return json data, else throw error;
+        // If successful, return json success, else throw error;
         success ? res.json(success) : (err) => {throw err};
     });
 });
@@ -44,17 +50,13 @@ app.post('/api/signin', function(req, res) {
     var userObject = req.body;
     console.log(userObject)
     console.log("  = userObject")
-                let bool = true;
-                console.log('signed in: ');
-                console.log(userObject);
-                Users.signIn(userObject.username, bool, {}, function (err, user) {
-                    user ?
-                        res.json(user)
-                        : (err) => {
-                            throw err
-
-                        };
-                })
+    let bool = true;
+    console.log('signed in: ');
+    console.log(userObject);
+    Users.signIn(userObject.username, bool, {}, function (err, user) {
+        // If signed in, send json user, else throw error;
+        user ? res.json(user) : (err) => {throw err};
+    })
 });
 
 // ----- Sign out by username ----- //
@@ -62,24 +64,19 @@ app.post('/api/signout', function(req, res) {
     var userObject = req.body;
     let bool = false;
     Users.signOut(userObject.username, bool, {}, function (err, user) {
-        user ?
-            res.json(user)
-            : (err) => {
-                throw err
-
-            };
+        // If signed out, send json user, else throw error;
+        user ? res.json(user) : (err) => {throw err};
     })
 });
 
 
 
 
-// ----- Load car model ----- //
-var Cars = require('./models/car.js');
 
-// ------------------ //
+
+// ---------------------- //
 // ----- Car Routes ----- //
-// ------------------ //
+// ---------------------- //
 
 // ----- Get avaliable cars ----- //
 app.get('/api/cars', function(req, res) {
@@ -93,29 +90,17 @@ app.get('/api/cars', function(req, res) {
 // ----- Filter avaliable cars ----- //
 app.post('/api/cars/filter', function(req, res) {
     var conditions = req.body.conditions;
-    console.log(conditions);
-    console.log("  = condition");
     Cars.filterCars(conditions, function (err, user) {
-        user ?
-            res.json(user)
-            : (err) => {
-                throw err
-            };
-    })
-});
-
-app.get('/api/cars:_id', function(req, res) {
-    Cars.getCars(function(err, success) {
         // If successful, return json data, else throw error;
-        success ? res.json(success) : (err) => {throw err};
-    });
+        user ? res.json(user) : (err) => {throw err};
+    })
 });
 
 // ----- Add new car ----- //
 app.post('/api/cars/add', function(req, res) {
     var car = req.body;
     Cars.addCar(car, function(err, success) {
-        console.log("added car: " + success)
+        console.log("Added car: " + success)
         // If successful, return json data, else throw error;
         success ? res.json(success) : (err) => {throw err};
     });
@@ -128,7 +113,7 @@ app.post('/api/cars/remove', function(req, res) {
     Cars.getCarById(_id, function(err, success) {
         if(success) {
             Cars.removeCar(_id, function(err, completed) {
-                // If successful, return json data, else throw error;
+                // If successful, console log, else throw error;
                 success ? console.log('Removed car!') : (err) => {throw err};
             });
         }
@@ -139,19 +124,18 @@ app.post('/api/cars/remove', function(req, res) {
 app.post('/api/cars/book', function(req, res) {
     var _id = req.body.id;
     Cars.bookCar(_id, {},{}, function(err, car) {
-        car ? console.log('Booked car! : ' + car) : (err) => {
-            throw err
-        };
+        // If successful, console log, else throw error;
+        car ? console.log('Booked car! : ' + car) : (err) => {throw err}
     })
 })
 
+// ----- Unbook a car by id ----- //
 app.post('/api/cars/unbook', function(req, res) {
     var _id = req.body.id;
-    console.log(_id)
-    Cars.unBookCar(_id, {},{}, function(err, car) {
-        car ? console.log('Unbooked car! : ' + car) : (err) => {
-            console.log('something wnt wrong')
-    }})
+    Cars.unBookCar(_id, {}, {}, function(err, car) {
+        // If successful, console log, else throw error;
+        car ? console.log('Unbooked car! : ' + car) : (err) => {throw err}
+    })
 })
 
 // ----- Update a car by id ----- //
@@ -159,9 +143,8 @@ app.post('/api/cars/update', function(req, res) {
     var _id = req.query.id;
     var car = req.body;
     Cars.updateCar(_id, car, {}, function(err, success) {
-        success ? console.log('Updated: ' + success) : (err) => {
-            throw err
-        }
+        // If successful, console log success, else throw error;
+        success ? console.log('Updated: ' + success) : (err) => {throw err}
     })
 })
 
