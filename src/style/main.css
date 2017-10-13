@@ -291,6 +291,28 @@ font-family: 'News Cycle', sans-serif;
 
 /*Admin section*/
 
+.admin-log-out{
+    top: 5%;
+    right: 5%;
+    position: absolute;
+    width: 19%;
+}
+
+.admin-go-back {
+    top: 5%;
+    left: 5%;
+    position: absolute;
+    width: 19%;
+
+}
+.admin-auth-div{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 15vh;
+}
+
+
 
 
 /*Authentication section*/

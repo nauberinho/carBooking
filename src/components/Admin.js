@@ -162,10 +162,9 @@ export default class Admin extends Component {
         return(
             <div id="view_height" className="container">
                 {this.state.modal ? form : null}
-                <button onClick={this.update}>Update</button>
+                <div className="admin-auth-div"><button className='btn-default admin-go-back' id='home' onClick={this.props.changeView}>Gå tillbaka</button>
+                    <button className='btn-default red-text admin-log-out col-xs-3 col-md-3' onClick={this.props.handleSignOut}>Logga ut</button></div>
 
-                <button className='btn-default' id='home' onClick={this.props.changeView}>Gå tillbaka</button>
-                <button className='btn-default red-text book-log-out col-xs-3 col-md-3' onClick={this.props.handleSignOut}>Logga ut</button>
                 <h3><button className="btn-default" onClick={() => {this.openModal('new')}}> <span className="green-text">Lägg till ny</span> </button></h3>
                 <div id="fields" className="row">
                     {carsList}

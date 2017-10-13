@@ -26,10 +26,10 @@ export default class Authentication extends Component {
                                     <button className='btn-default col-sm-12' id={this.props.state.view} onClick={this.props.changeView}>Gå tillbaka</button>
                                     <h3 className="auth-h2 darkred-text">Skapa konto</h3>
                                     <input type="text" data-id="username" id="usernameInput" className="auth-form darkred-text col-sm-12"
-                                           placeholder="Username"
+                                           placeholder="Användarnamn"
                                            onKeyUp={this.props.updateAuthObject}/>
                                     <input type="password" data-id="password" id="passwordInput" className="auth-form darkred-text col-sm-12"
-                                           placeholder="Password" onKeyUp={this.props.updateAuthObject}/>
+                                           placeholder="Lösenord" onKeyUp={this.props.updateAuthObject}/>
                                     Jag vill registrera mig som:
                                     <div className="checkbox">
                                         <input data-id="type" type="radio" name="name" value="user" onChange={this.props.updateAuthObject}/> Kund<br/>
@@ -45,17 +45,17 @@ export default class Authentication extends Component {
                                 <div className="col-sm-6">
                                     <button className='btn-default col-sm-12' id={this.props.state.view} onClick={this.props.changeView}>Gå tillbaka</button>
 
-                                    <h2>Sign in</h2>
+                                    <h2>Logga in</h2>
 
-                                    <input type="email" data-id="username" className="form-control"
-                                           placeholder="Email address"
+                                    <input type="email" data-id="username" id="usernameInput" className="auth-form darkred"
+                                           placeholder="Ditt användarnamn"
                                            autoFocus onKeyUp={this.props.updateAuthObject}/>
 
-                                    <input type="password" data-id="password" className="form-control"
-                                           placeholder="Password" onKeyUp={this.props.updateAuthObject}/>
+                                    <input type="password" data-id="password" id="passwordInput" className="auth-form darkred"
+                                           placeholder="Ditt lösenord" onKeyUp={this.props.updateAuthObject}/>
                                     <div className="checkbox">
 
-                                        <input type="checkbox" value="remember-me"/> Remember me
+                                        <input type="checkbox" value="remember-me"/> Kom ihåg mig
 
                                     </div>
                                     <button className="btn-default btn-block" onClick={self.props.handleSignIn}>Sign In</button>
