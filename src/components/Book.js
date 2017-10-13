@@ -79,7 +79,7 @@ export default class Book extends Component {
 
 
                         <div className="col-xs-12 col-sm-12 book-li" data-id={car._id} onClick={this.props.bookCar}>
-                            <div className="col-xs-12 col-sm-6 info-div">
+                            <div className="col-xs-12 col-sm-5 info-div">
                                 <div className="col-xs-4 col-sm-12">Märke: {car.brand}</div>
                                 <div className="col-xs-4 col-sm-12">Modell: {car.model}</div>
                                 <div className="col-xs-4 col-sm-12">Årsmodell: {car.year}</div>
@@ -89,7 +89,7 @@ export default class Book extends Component {
                                 <div className="col-xs-4 col-sm-12">Tillgänglig: {car.status ? <span className="green-text">JA</span> : <span className="red-text">Nej</span>}</div>
 
                             </div>
-                            <div className="book-li-img-div col-xs-12 col-sm-6">
+                            <div className="book-li-img-div col-xs-12 col-sm-5">
                             <img className="book-li-img" src={car.imgLink} alt={car.imgLink}/>
 
                             </div>
