@@ -1,5 +1,6 @@
 const mainReducer = (state = {
     view: "home",
+    userMenu: "hidden",
     auth: {
         user: false,
         admin: false,
@@ -11,7 +12,8 @@ const mainReducer = (state = {
 
         },
         create: false,
-        signIn: false
+        signIn: false,
+
     },
 
 }, action) => {
@@ -19,6 +21,8 @@ const mainReducer = (state = {
     switch(action.type){
 
         case 'HANDLE_SIGN_IN': // Sends state's authObject to the database and receives a response.
+            newState.auth.user = true;
+            /*
             let pushSubmit = new XMLHttpRequest();
             pushSubmit.open('POST', 'http://localhost:7000/api/signin', false);
             pushSubmit.setRequestHeader("Content-Type", "application/json");
@@ -41,9 +45,15 @@ const mainReducer = (state = {
                 }
             };
             pushSubmit.send(JSON.stringify(newState.auth.authObject));
+            */
             return newState;
 
         case 'HANDLE_SIGN_OUT': // Sends state's authObject to the database and receives a response.
+
+            newState.auth.user = false;
+            newState.auth.signIn = false;
+            newState.userMenu = "hidden";
+            /*
             let signOutReq = new XMLHttpRequest();
             signOutReq.open('POST', 'http://localhost:7000/api/signout', false);
             signOutReq.setRequestHeader("Content-Type", "application/json");
@@ -64,10 +74,11 @@ const mainReducer = (state = {
                 }
             }
             signOutReq.send(JSON.stringify(newState.auth.authObject));
+            */
 
             return newState;
 
-        case 'CHANGE_VIEW': //Changes website view based on the click's (event) data-id (event.target.getAttribute) which contains a message to this reducer.
+            case 'CHANGE_VIEW': //Changes website view based on the click's (event) data-id (event.target.getAttribute) which contains a message to this reducer.
             if(action.payload.target.getAttribute('data-id') === 'signIn' || action.payload.target.getAttribute('data-id') === 'create'){
                 let bool = true;
                 if(newState.auth[action.payload.target.getAttribute('data-id')] === true){
@@ -86,9 +97,31 @@ const mainReducer = (state = {
                 newState.auth.signIn = false;
                 newState.auth.create = false;
             };
+
             return newState;
 
-        case 'HANDLE_CREATE_ACCOUNT': // Sends state's authObject to the database, which then creates an account.
+            case 'TOGGLE_MENU':
+
+            if(action.payload.target.getAttribute('data-id') === "toggleUserMenu"){
+
+                if(newState.userMenu === "visible"){
+                    newState.userMenu = "hidden"
+
+                }
+
+                else{
+                    newState.userMenu = "visible"
+                }
+
+
+
+            }
+
+
+            return newState;
+
+
+            case 'HANDLE_CREATE_ACCOUNT': // Sends state's authObject to the database, which then creates an account.
             action.payload.preventDefault();
             let create = new XMLHttpRequest();
             create.open('POST', 'http://localhost:7000/api/cars/createaccount', false);
@@ -122,15 +155,15 @@ const mainReducer = (state = {
 
             return newState;
 
-        case 'UPDATE_AUTH_OBJECT': // Updates state's authObject when user modifies the input fields under a sign in or create account session.
+            case 'UPDATE_AUTH_OBJECT': // Updates state's authObject when user modifies the input fields under a sign in or create account session.
             console.log('updating');
             newState.auth.authObject[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
 
             return newState;
 
-        default:
+            default:
             return newState;
-    }
+            }
 
 
 

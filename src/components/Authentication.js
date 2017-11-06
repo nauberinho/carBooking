@@ -1,64 +1,62 @@
 
 import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js'
+import Header from './Header.js'
 
 export default class Authentication extends Component {
     render(){
         let state = this.props.state;
-        let self = this;
         return (
             <div className="auth-container">
+                <Header/>
                 {state.auth.create === false && state.auth.signIn === false ?
 
-                    <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={self.props.changeAuthType} state={this.props.state}/>
+                    <SignInOrSignUp sayHello={this.props.sayHello} changeView={this.props.changeView} changeAuthType={this.props.changeAuthType} state={this.props.state}/>
 
                     :
 
                     <div className="container auth-div">
-                        <div className="row">
-                            <div className="col-sm-3"></div>
+
 
 
                             { state.auth.create === true ?
 
-
-                                <div className="col-sm-6">
-                                    <button className='btn-default col-sm-12' id={this.props.state.view} onClick={this.props.changeView}>Gå tillbaka</button>
-                                    <h3 className="auth-h2 darkred-text">Skapa konto</h3>
-                                    <input type="text" data-id="username" id="usernameInput" className="auth-form darkred-text col-sm-12"
-                                           placeholder="Användarnamn"
+                                <div className="col-sm-6 form-container">
+                                    <button className='col-sm-6 btn-all btn-go-back'><i className="material-icons">highlight_off</i>
+                                        <button className="btn-cover" id={this.props.state.view} onClick={this.props.changeView}></button></button>
+                                    <h3 className="auth-h2 lightpurple-text">Create account</h3>
+                                    <input type="text" data-id="username" id="usernameInput" className="input-all auth-input"
+                                           placeholder="Your username"
                                            onKeyUp={this.props.updateAuthObject}/>
-                                    <input type="password" data-id="password" id="passwordInput" className="auth-form darkred-text col-sm-12"
-                                           placeholder="Lösenord" onKeyUp={this.props.updateAuthObject}/>
-                                    Jag vill registrera mig som:
-                                    <div className="checkbox">
-                                        <input data-id="type" type="radio" name="name" value="user" onChange={this.props.updateAuthObject}/> Kund<br/>
-                                            <input data-id="type" type="radio" name="name" value="admin" onChange={this.props.updateAuthObject}/> Administratör<br/>
-                                        <input type="checkbox" value="remember-me"/> Kom ihåg mig
-                                    </div>
-                                    <button className="btn-default btn-block" onClick={self.props.handleCreateAccount}>Skapa konto</button>
+                                    <input type="password" data-id="password" id="passwordInput" className="input-all auth-input"
+                                           placeholder="Your password" onKeyUp={this.props.updateAuthObject}/>
+
+                                  <input type="checkbox" value="remember-me"/> Remember me
+
+                                    <button className="col-sm-6 btn-all btn-big form-btn" onClick={this.props.handleCreateAccount}>Create account</button>
                                 </div>
 
                                 :
 
 
-                                <div className="col-sm-6">
-                                    <button className='btn-default col-sm-12' id={this.props.state.view} onClick={this.props.changeView}>Gå tillbaka</button>
+                                <div className="col-sm-6 form-container">
+                                    <button className='col-sm-6 btn-all btn-go-back'><i className="material-icons">highlight_off</i>
+                                        <button className="btn-cover" id={this.props.state.view} onClick={this.props.changeView}></button></button>
 
-                                    <h2>Logga in</h2>
+                                    <h3 className="auth-h2 lightpurple-text">Sign In</h3>
 
-                                    <input type="email" data-id="username" id="usernameInput" className="auth-form darkred"
-                                           placeholder="Ditt användarnamn"
+                                    <input className="input-all auth-input" type="email" data-id="username" id="usernameInput"
+                                           placeholder="Your username"
                                            autoFocus onKeyUp={this.props.updateAuthObject}/>
 
-                                    <input type="password" data-id="password" id="passwordInput" className="auth-form darkred"
-                                           placeholder="Ditt lösenord" onKeyUp={this.props.updateAuthObject}/>
+                                    <input className="input-all auth-input" type="password" data-id="password" id="passwordInput"
+                                           placeholder="Your password" onKeyUp={this.props.updateAuthObject}/>
                                     <div className="checkbox">
 
-                                        <input type="checkbox" value="remember-me"/> Kom ihåg mig
+                                        <input type="checkbox" value="remember-me"/> Remember me
 
                                     </div>
-                                    <button className="btn-default btn-block" onClick={self.props.handleSignIn}>Sign In</button>
+                                    <button className="col-sm-6 btn-all btn-big form-btn" onClick={this.props.handleSignIn}>Sign In</button>
 
 
                                 </div>
@@ -67,7 +65,6 @@ export default class Authentication extends Component {
 
                             <div className="col-sm-3"></div>
 
-                        </div>
                     </div>
 
                 }

@@ -1,25 +1,23 @@
 import '../style/main.css';
 import Home from './Home.js';
 import Book from './Book.js';
-import Admin from './Admin.js';
+import Header from './Header.js'
+import Authenticated from './Authenticated.js';
 import Authentication from './Authentication.js';
-import AuthNeeded from './AuthNeeded.js';
+import AuthNeeded from './NeedAuth.js';
 
 import {
     changeView,
-    bookCar,
-    editCar,
-    addCar,
-    removeCar,
+    initRender,
     handleSignIn,
     updateAuthObject,
     handleCreateAccount,
     changeAuthType,
     handleSignOut,
-    updateCarsList,
     filter,
-    filterAll,
-    unBookCar
+    fetchPlants,
+    toggleMenu
+
 } from '../actions/commonActions.js';
 
 import {connect} from 'react-redux';
@@ -31,89 +29,43 @@ class App extends Component {
   render() {
       console.log(this.props)
       return (
+
+
           <div className="main-container container-fluid simplebar">
 
-              {
-                  this.props.mainState.view === 'home' ?
-                      <Home changeView={this.props.changeView} state={this.props.mainState} initialRender={this.props.initialRender} handleSignOut={this.props.handleSignOut}/>
-                      :null
-              }
 
               {
-                  this.props.mainState.view === 'book'
-                      ?
-                      this.props.mainState.auth.user === true ?
-                          <Book bookCar={this.props.bookCar}
-                                unBookCar={this.props.unBookCar}
-                                updateCarsList={this.props.updateCarsList}
-                                updateCarChoice={this.props.updateCarChoice}
-                                state={this.props.carsState}
-                                changeView={this.props.changeView}
-                                handleSignOut={this.props.handleSignOut}
-                                filter={this.props.filter}
-                                filterAll={this.props.filterAll}
-                          />
-                          :
-
-
-                          <Authentication handleSignIn={this.props.handleSignIn}
-                                          updateAuthObject={this.props.updateAuthObject}
-                                          state={this.props.mainState}
-                                          changeView={this.props.changeView}
-                                          handleCreateAccount={this.props.handleCreateAccount}
-                                          sayHello={this.props.sayHello}
-
-                          />
-                      :null
-              }
-
-              {
-                  this.props.mainState.view === 'logIn' ?
-                      this.props.mainState.auth.admin === true ?
-                          <Admin
-                              state={this.props.carsState}
-                              changeView={this.props.changeView}
-                              addCar={this.props.addCar}
-                              removeCar={this.props.removeCar}
-                              editCar={this.props.editCar}
-                              updateCarsList={this.props.updateCarsList}
-                              handleSignOut={this.props.handleSignOut}
-                          />
-                          :
-
-
-                          this.props.mainState.auth.user === true ?
-
-                              <AuthNeeded
-                                  changeView={this.props.changeView}
-                                  handleSignOut={this.props.handleSignOut}
-                              />
-
-
-                              :
-
-
-
-
-
-                   this.props.mainState.auth.user === false && this.props.mainState.auth.admin === false ?
-
-                      <Authentication handleSignIn={this.props.handleSignIn}
-                                      updateAuthObject={this.props.updateAuthObject}
-                                      state={this.props.mainState}
-                                      changeView={this.props.changeView}
-                                      handleCreateAccount={this.props.handleCreateAccount}
-                                      sayHello={this.props.sayHello}
-
+                  this.props.mainState.auth.user === true ?
+                      <Authenticated
+                          state={this.props.plantsState}
+                          initRender={this.props.initRender}
+                          fetchPlants={this.props.fetchPlants}
+                          toggleMenu={this.props.toggleMenu}
+                          mainState={this.props.mainState}
+                          handleSignOut={this.props.handleSignOut}
                       />
+                      :
 
-                      : null
-
-
-                      : null
-
+                    null
               }
 
+              {
+                  this.props.mainState.view === 'home' &&  this.props.mainState.auth.user === false ?
+
+                          <Authentication
+                              handleSignIn={this.props.handleSignIn}
+                              updateAuthObject={this.props.updateAuthObject}
+                              state={this.props.mainState}
+                              changeView={this.props.changeView}
+                              handleCreateAccount={this.props.handleCreateAccount}
+                              sayHello={this.props.sayHello}
+                          />
+
+
+                      :
+
+                      null
+              }
 
 
           </div>
@@ -126,7 +78,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         mainState: state.mainReducer,
-        carsState: state.carsReducer
+        carsState: state.carsReducer,
+        plantsState: state.plantsReducer
     }
 };
 
@@ -138,35 +91,6 @@ const mapDispatchToProps = (dispatch) => {
 
             filter: (event) => {
               dispatch(filter(event))
-            },
-
-            filterAll: (event) => {
-               dispatch(filterAll(event))
-            },
-
-            updateCarsList: () => {
-                dispatch(updateCarsList())
-            },
-
-            bookCar: (event) => {
-                dispatch(bookCar(event))
-            },
-
-            unBookCar: (event) => {
-            dispatch(unBookCar(event))
-             },
-
-            addCar: (event) => {
-                dispatch( addCar(event))
-            },
-
-            editCar: (car, id) => {
-            dispatch(editCar(car, id))
-            },
-
-
-            removeCar: (event) => {
-                dispatch( removeCar(event))
             },
 
             handleSignIn: (event) => {
@@ -188,8 +112,20 @@ const mapDispatchToProps = (dispatch) => {
             handleSignOut: (event) => {
 
                 dispatch(handleSignOut(event))
-            }
+            },
 
+            initRender: () => {
+
+                dispatch(initRender())
+            },
+
+            fetchPlants: () => {
+            dispatch(fetchPlants())
+            },
+
+            toggleMenu: (event) => {
+                dispatch(toggleMenu(event))
+            },
 
         }
 };

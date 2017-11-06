@@ -1,7 +1,27 @@
 
+
+export function initRender (){
+    return {
+        type: 'INIT_RENDER'
+    }
+}
+
+export function fetchPlants (){
+    return {
+        type: 'FETCH_PLANTS'
+    }
+}
+
 export function changeView (event){
     return {
         type: 'CHANGE_VIEW',
+        payload: event
+    }
+}
+
+export function toggleMenu (event){
+    return {
+        type: 'TOGGLE_MENU',
         payload: event
     }
 }
@@ -13,19 +33,6 @@ export function filter(event){
     }
 }
 
-export function filterAll(event){
-    return {
-        type: 'FILTER_ALL',
-        payload: event
-    }
-}
-
-export function updateCarsList() {
-    return {
-        type: 'UPDATE_CARS_LIST'
-    }
-}
-
 export function changeAuthType (event){
 
     return {
@@ -33,42 +40,6 @@ export function changeAuthType (event){
         payload: event
     }
 
-}
-
-export function bookCar(event){
-    return {
-        type: 'BOOK_CAR',
-        payload: event
-    }
-}
-
-export function unBookCar(event){
-    return {
-        type: 'BOOK_CAR',
-        payload: event
-    }
-}
-
-export function addCar(car){
-    return {
-        type: 'ADD_CAR',
-        payload: car
-    }
-}
-
-export function editCar(car, id) {
-    return {
-        type: 'EDIT_CAR',
-        car: car,
-        id: id
-    }
-}
-
-export function removeCar(id){
-    return {
-        type: 'REMOVE_CAR',
-        payload: id
-    }
 }
 
 export function updateAuthObject(event){
@@ -102,15 +73,3 @@ export function handleCreateAccount(event){
     }
 
 }
-
-export function sayHello(){
-
-    return {
-        type: 'SAY_HELLO'
-
-    }
-
-}
-
-
-
