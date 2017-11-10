@@ -6,6 +6,10 @@ var mongoose = require('mongoose');
 // ----- Init app ----- //
 var app = express();
 
+//---------SOCKET.IO---------------//
+var http = require('http');
+var server = http.Server(app);
+var io = require('socket.io')(server);
 // ----- Make use of access-control-allow-origin to prevent CORS-error ----- //
 app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -19,7 +23,7 @@ var db = mongoose.connection;
 
 // ----- Make app use body query parser ----- //
 var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json({ type: 'application/json' });
+var jsonParser = bodyParser.json({ type: 'application/json'});
 app.use(jsonParser);
 
 // ----- Load user model ----- //

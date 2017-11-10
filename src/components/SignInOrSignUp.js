@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import AuthMessage from './AuthMessage.js';
 
 export default class SignInOrSignUp extends Component {
     render() {

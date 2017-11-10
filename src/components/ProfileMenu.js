@@ -1,0 +1,46 @@
+
+
+import React, { Component } from 'react';
+import SignInOrSignUp from './SignInOrSignUp.js'
+import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
+
+export default class ProfileMenu extends Component {
+
+    render(){
+        let state = this.props.state;
+        return (
+            <div className="profile-menu">
+                <NavLink to="/signedin/myplants" className="profile-menu-button btn-all column" id="myplants" onClick={this.props.navigate}>
+                    <div className="vertically centered">
+                        My plants
+                    </div>
+                </NavLink>
+                <NavLink to="/signedin/water" className="profile-menu-button btn-all column" id="water" onClick={this.props.navigate}>
+                    <div className="vertically centered">
+                        Water
+                    </div>
+                </NavLink>
+                <NavLink to="/signedin/myprofile" className="profile-menu-button btn-all column" id="myprofile" onClick={this.props.navigate}>
+                    <div className="vertically centered">
+                        My profile
+                    </div>
+                </NavLink>
+                <NavLink to="/signedin/updateplants" className="profile-menu-button btn-all column" id="changeplants" onClick={this.props.navigate}>
+                    <div className="vertically centered">
+                        Update plants
+                    </div>
+                </NavLink>
+                <NavLink to="/signedin/mysettings" className="profile-menu-button btn-all column" id="mysettings" onClick={this.props.navigate}>
+                    <div className="vertically centered">
+                        Settings
+                    </div>
+                </NavLink>
+                <NavLink onClick={this.props.handleSignOut} to="/" className="profile-menu-button btn-all column">
+                    <div className="vertically centered">
+                        Sign Out
+                    </div>
+                </NavLink>
+            </div>
+        )
+    }
+}

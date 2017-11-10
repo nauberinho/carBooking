@@ -1,67 +1,47 @@
-
-
-
+import socket from '../socket.js'
 
 const plantsReducer = (state = {
-    plants: []
-
-
+    plants: [],
+    focusPlant: {},
+    plantToAdd: {
+        name: "",
+        category: "",
+        description: "",
+        imgUrl: "",
+        watering: "",
+        __v: 0,
+        _id: ""
+    }
 }, action) => {
     let newState = {...state};
     let plantsList;
     let self = this;
     switch(action.type){
 
-        case 'INIT_RENDER':
-
-
-            var request = new Request('https://sigma-itc-watering.herokuapp.com/plants', {
-                method: 'GET',
-                mode: "cors",
-                headers: new Headers()
-            });
-            fetch(request) // Transform the data into json
-                .then(function(response) {
-                    return response.text();
-                }).then(function(response) {
-                console.log(response)
-                modifyState(JSON.parse(response));
-            });
-
-            function modifyState(data) {
-
-                newState.plants = data;
-            }
-
+        case 'UPDATE_PLANTS':
+            newState.plants = action.payload;
             return newState;
 
-        case 'FETCH_PLANTS':
+        case 'FOCUS_ON_PLANT':
+            newState.focusPlant = action.payload;
+            return newState;
 
-            let self = this;
-            var request = new Request('https://sigma-itc-watering.herokuapp.com/plants', {
-                method: 'GET',
-                mode: "cors",
-                headers: new Headers()
-            });
-            fetch(request) // Transform the data into json
-                .then(function(response) {
-                    return response.text();
-                }).then(function(response) {
-                console.log(response)
-                modifyState(JSON.parse(response));
-            });
+        case 'WATER_PLANT':
+            console.log(action.payload);
+            return newState;
 
-            function modifyState(data) {
-                newState.plants = data;
-            }
+        case 'UPDATE_PLANT_TO_ADD':
+            newState.plantToAdd[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
+            return newState;
 
+        case 'ADD_PLANT':
+            let plantToAdd = newState.plantToAdd;
+            console.log(plantToAdd);
+            socket.emit('user-add-plant', plantToAdd);
             return newState;
 
         default:
             return newState;
-    }
-
-
-
+        }
 }
 export default plantsReducer;

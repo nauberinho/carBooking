@@ -1,19 +1,15 @@
+import socket from '../socket.js'
+
 const mainReducer = (state = {
     view: "home",
     userMenu: "hidden",
     auth: {
-        user: false,
-        admin: false,
         authObject: {
             username: "",
-            password: "",
-            signedIn: false,
-            type: ""
-
+            password: ""
         },
         create: false,
-        signIn: false,
-
+        signIn: false
     },
 
 }, action) => {
@@ -100,69 +96,21 @@ const mainReducer = (state = {
 
             return newState;
 
-            case 'TOGGLE_MENU':
-
-            if(action.payload.target.getAttribute('data-id') === "toggleUserMenu"){
-
-                if(newState.userMenu === "visible"){
-                    newState.userMenu = "hidden"
-
-                }
-
-                else{
-                    newState.userMenu = "visible"
-                }
-
-
-
-            }
-
-
-            return newState;
 
 
             case 'HANDLE_CREATE_ACCOUNT': // Sends state's authObject to the database, which then creates an account.
-            action.payload.preventDefault();
-            let create = new XMLHttpRequest();
-            create.open('POST', 'http://localhost:7000/api/cars/createaccount', false);
-            create.setRequestHeader("Content-Type", "application/json");
-            create.onreadystatechange = function () {
-                console.log('onreadystatechange')
-                if (this.readyState === 4 && this.status === 200) {
-                    let user = JSON.parse( create.response);
-                    let signInReq = new XMLHttpRequest();
-                    signInReq.open('POST', 'http://localhost:7000/api/signin', false);
-                    signInReq.setRequestHeader("Content-Type", "application/json");
-                    signInReq.onreadystatechange = function () {
-                        console.log('onreadystatechange')
-                        if (this.readyState === 4 && this.status === 200) {
-                            newState.auth.authObject = user;
-                            if(user.type === "admin"){
-                                newState.auth.admin = true;
-                                newState.auth.user = true;
-                            }
-                            else if(user.type === "user"){
-                                newState.auth.admin = false;
-                                newState.auth.user = true;
-                            }
-                            console.log(user)
-                        }
-                    };
-                    signInReq.send(JSON.stringify(newState.auth.authObject));
-                }
-            }
-            create.send(JSON.stringify(newState.auth.authObject));
+                 let userToAdd = newState.auth.authObject;
+                 socket.emit('system-add-user', userToAdd)
 
-            return newState;
+                 return newState;
 
             case 'UPDATE_AUTH_OBJECT': // Updates state's authObject when user modifies the input fields under a sign in or create account session.
-            console.log('updating');
-            newState.auth.authObject[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
+                newState.auth.authObject[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
 
-            return newState;
+                return newState;
 
             default:
-            return newState;
+                return newState;
             }
 
 

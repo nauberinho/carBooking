@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js'
 import Header from './Header.js'
+import { BrowserRouter, Route, Switch, Redirect, Link} from 'react-router-dom';
 
 export default class Authentication extends Component {
     render(){
@@ -41,7 +42,8 @@ export default class Authentication extends Component {
 
                                 <div className="col-sm-6 form-container">
                                     <button className='col-sm-6 btn-all btn-go-back'><i className="material-icons">highlight_off</i>
-                                        <button className="btn-cover" id={this.props.state.view} onClick={this.props.changeView}></button></button>
+                                        <button className="btn-cover" id={this.props.state.view} onClick={this.props.changeView}></button>
+                                    </button>
 
                                     <h3 className="auth-h2 lightpurple-text">Sign In</h3>
 
@@ -56,7 +58,7 @@ export default class Authentication extends Component {
                                         <input type="checkbox" value="remember-me"/> Remember me
 
                                     </div>
-                                    <button className="col-sm-6 btn-all btn-big form-btn" onClick={this.props.handleSignIn}>Sign In</button>
+                                    <Link to="/signedin" className="col-sm-6 btn-all btn-big form-btn" onClick={this.props.handleSignIn}>Sign In</Link>
 
 
                                 </div>

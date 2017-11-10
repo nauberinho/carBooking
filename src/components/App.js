@@ -1,11 +1,9 @@
-import '../style/main.css';
-import Home from './Home.js';
-import Book from './Book.js';
+import '../style/main.css'
 import Header from './Header.js'
 import Authenticated from './Authenticated.js';
 import Authentication from './Authentication.js';
-import AuthNeeded from './NeedAuth.js';
-
+import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import socket from '../socket.js'
 import {
     changeView,
     initRender,
@@ -16,7 +14,12 @@ import {
     handleSignOut,
     filter,
     fetchPlants,
-    toggleMenu
+    toggleMenu,
+    navigate,
+    water,
+    focusOnPlant,
+    updatePlantToAdd,
+    addPlant
 
 } from '../actions/commonActions.js';
 
@@ -26,49 +29,73 @@ import React, { Component } from 'react';
 
 class App extends Component {
 
+    componentDidMount(){
+        console.log(this)
+
+        this.props.fetchPlants();
+        socket.on('water-confirmation', function(data) {
+            console.log(data)
+        })
+
+    }
+
   render() {
-      console.log(this.props)
+
       return (
 
+          <BrowserRouter>
+              <div className="main-container container-fluid simplebar">
 
-          <div className="main-container container-fluid simplebar">
+                  <Route exact path="/" render={(props) =>
+                      (
+                          <Redirect to="/home"/>
+                      )
+                  }>
+                  </Route>
 
+                          <Route path="/home" render={(props) =>
+                              (
+                                  <Authentication
+                                      handleSignIn={this.props.handleSignIn}
+                                      updateAuthObject={this.props.updateAuthObject}
+                                      state={this.props.mainState}
+                                      changeView={this.props.changeView}
+                                      handleCreateAccount={this.props.handleCreateAccount}
+                                      sayHello={this.props.sayHello}
+                                  />
+                              )
+                          }>
+                          </Route>
 
-              {
-                  this.props.mainState.auth.user === true ?
-                      <Authenticated
-                          state={this.props.plantsState}
-                          initRender={this.props.initRender}
-                          fetchPlants={this.props.fetchPlants}
-                          toggleMenu={this.props.toggleMenu}
-                          mainState={this.props.mainState}
-                          handleSignOut={this.props.handleSignOut}
-                      />
-                      :
+                          <Route path="/signedin" render={(props) =>
+                              (
+                                  <Authenticated
+                                      state={this.props.authenticatedState}
+                                      plantsState={this.props.plantsState}
+                                      initRender={this.props.initRender}
+                                      fetchPlants={this.props.fetchPlants}
+                                      toggleMenu={this.props.toggleMenu}
+                                      mainState={this.props.mainState}
+                                      handleSignOut={this.props.handleSignOut}
+                                      navigate={this.props.navigate}
+                                      water={this.props.water}
+                                      match={props.match}
+                                      focusOnPlant={this.props.focusOnPlant}
+                                      updatePlantToAdd={this.props.updatePlantToAdd}
+                                      addPlant={this.props.addPlant}
+                                  />
+                              )
+                          }>
 
-                    null
-              }
-
-              {
-                  this.props.mainState.view === 'home' &&  this.props.mainState.auth.user === false ?
-
-                          <Authentication
-                              handleSignIn={this.props.handleSignIn}
-                              updateAuthObject={this.props.updateAuthObject}
-                              state={this.props.mainState}
-                              changeView={this.props.changeView}
-                              handleCreateAccount={this.props.handleCreateAccount}
-                              sayHello={this.props.sayHello}
-                          />
-
-
-                      :
-
-                      null
-              }
-
-
-          </div>
+                              <Route exact path="/" render={(props) =>
+                                  (
+                                      <Redirect to="/home"/>
+                                  )
+                              }>
+                              </Route>
+                          </Route>
+              </div>
+          </BrowserRouter>
 
 
       );
@@ -79,7 +106,8 @@ const mapStateToProps = (state) => {
     return {
         mainState: state.mainReducer,
         carsState: state.carsReducer,
-        plantsState: state.plantsReducer
+        plantsState: state.plantsReducer,
+        authenticatedState: state.authenticatedReducer
     }
 };
 
@@ -119,14 +147,38 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(initRender())
             },
 
-            fetchPlants: () => {
-            dispatch(fetchPlants())
-            },
+
 
             toggleMenu: (event) => {
                 dispatch(toggleMenu(event))
             },
 
+            navigate: (event) => {
+                dispatch(navigate(event))
+            },
+
+            fetchPlants: (data) => {
+                dispatch(fetchPlants(data))
+            },
+
+
+            focusOnPlant: (plantId) => {
+
+            dispatch(focusOnPlant(plantId))
+            },
+
+            water: (event) => {
+                dispatch(water(event))
+            },
+
+            updatePlantToAdd: (event) => {
+                dispatch(updatePlantToAdd(event))
+            },
+
+            addPlant: (event) => {
+                dispatch( addPlant(event))
+
+            }
         }
 };
 

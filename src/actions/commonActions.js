@@ -1,14 +1,8 @@
-
+import socket from '../socket.js'
 
 export function initRender (){
     return {
         type: 'INIT_RENDER'
-    }
-}
-
-export function fetchPlants (){
-    return {
-        type: 'FETCH_PLANTS'
     }
 }
 
@@ -18,6 +12,14 @@ export function changeView (event){
         payload: event
     }
 }
+
+export function navigate (event){
+    return {
+        type: 'NAVIGATE',
+        payload: event
+    }
+}
+
 
 export function toggleMenu (event){
     return {
@@ -73,3 +75,64 @@ export function handleCreateAccount(event){
     }
 
 }
+
+export function updatePlantToAdd(event){
+    return {
+        type: 'UPDATE_PLANT_TO_ADD',
+        payload: event
+    }
+}
+
+export function addPlant(event){
+
+    return {
+        type: 'ADD_PLANT',
+        payload: event
+    }
+}
+
+export function water(plantId){
+    socket.emit('user-water-plant', (
+            {
+                plant: {
+                    id: plantId
+                }
+            }
+        )
+    );
+    return (dispatch) => {
+        socket.on('user-water-plant-confirmation', function(data){
+            dispatch({type: 'WATER_PLANT', payload: data})
+        })
+
+    }
+}
+
+export function fetchPlants(){
+    let userId = 1234;
+    socket.emit('user-get-plants', ({id: userId}));
+    return (dispatch) => {
+        socket.on('user-get-plants-confirmation', function(data){
+            dispatch({type: 'UPDATE_PLANTS', payload: data})
+        })
+
+    }
+}
+
+export function focusOnPlant (plantId){
+    socket.emit('user-get-one-plant', (
+            {
+                plant: {
+                    id: plantId
+                }
+            }
+        )
+    );
+    return (dispatch) => {
+        socket.on('user-get-one-plant-confirmation', function(data){
+            dispatch({type: 'FOCUS_ON_PLANT', payload: data})
+        })
+
+    }
+}
+

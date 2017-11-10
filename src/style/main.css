@@ -1,6 +1,6 @@
 
 
-/* General */
+/*******GENERAL*************/
 body{
     font-family: 'Abel', sans-serif;
     overflow-x: hidden;
@@ -33,102 +33,120 @@ ul{
 }
 
 
-/*Colored text*/
+    /*********COLORED TEXT*********/
 
-.red-text{
-    color: red;
-}
+    .red-text{
+        color: red;
+    }
 
-.green-text{
-    color: green;
-}
+    .green-text{
+        color: green;
+    }
 
-.darkred-text{
-    color: darkred;
+    .darkred-text{
+        color: darkred;
 
-}
+    }
 
-.lightpurple-text{
-    color: rebeccapurple;
+    .lightpurple-text{
+        color: rebeccapurple;
+    }
 
-}
-
-.orange-text{
-    color: orange;
-}
-
-
-.btn-all{
-    position: relative;
-    font-family: 'Abel', sans-serif;
-    background: none;
-    display: block;
-    border: none;
-    transition: 0.2s ease;
-    cursor: pointer;
-    font-weight: 700;
-    transition: 0.2s ease;
-    outline: none!important;
-}
-
-.btn-big{
-
-    margin: auto;
-    margin-top: 4%;
-    color: rebeccapurple;
-    background-color: #efefef;
-    font-weight: 700;
-    font-size: 1.4em;
-}
-
-.btn-big:hover{
-
-    color: white;
-    background-color: rebeccapurple;
-}
-
-.form-btn{
-
-     height: 2em;
- }
-
-.btn-go-back {
-    position: absolute;
-    right: 0;
-    top: 0;
-    text-align: center;
-    color: rebeccapurple;
-    font-size: 0.5em;
-    width: 10%;
-}
-
-.btn-cover{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: none;
-    border: none;
-    outline: none;
-}
-
-.input-all{
-    background: none;
-    border: none;
-    outline: none;
-    padding: 0% 2%;
-    font-family: 'Abel', sans-serif;
-    font-weight: 700;
-}
+    .orange-text{
+        color: orange;
+    }
 
 
-.my-plants-button{
+    /*******BUTTONS**********//
+    button:focus {outline:0;}
 
-    position: absolute;
-    top: 0;
-    right: 15%;
-}
+    .btn-all{
+        position: relative;
+        font-family: 'Abel', sans-serif;
+        background: none;
+        display: block;
+        border: none;
+        transition: 0.2s ease;
+        cursor: pointer;
+        font-weight: 700;
+        outline: none!important;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .btn-big{
+
+        margin: auto;
+        margin-top: 4%;
+        color: rebeccapurple;
+        background-color: #efefef;
+        font-weight: 700;
+        font-size: 1.4em;
+    }
+
+    .btn-big:hover{
+
+        color: white;
+        background-color: rebeccapurple;
+    }
+
+    .form-btn{
+
+         height: 2em;
+     }
+
+    .btn-go-back {
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-align: center;
+        color: rebeccapurple;
+        font-size: 0.5em;
+        width: 10%;
+    }
+
+    .btn-cover{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+
+    /**************INPUTS*****************/
+    .input-all{
+        background: none;
+        border: none;
+        border-bottom: black;
+        outline: none;
+        padding: 0% 2%;
+        font-family: 'Abel', sans-serif;
+        font-weight: 700;
+    }
+
+    /*********POSITIONING AND ALIGNMENT***************/
+    .centered{
+         margin: auto;
+    }
+
+    .horizontally-centered{
+        margin: 0 auto;
+    }
+
+    .vertically-centered{
+        margin: auto 0;
+
+    }
+
+    .column{
+        display: flex;
+        flex-direction: column;
+    }
+
 
 
 
@@ -359,8 +377,8 @@ ul{
     }
 
     .book-li-wrapper{
-font-family: 'Abel', sans-serif;
-    font-weight: 700;
+        font-family: 'Abel', sans-serif;
+        font-weight: 700;
         display: flex;
         flex-direction: row;
         height: 30%;
@@ -368,21 +386,18 @@ font-family: 'Abel', sans-serif;
         border-bottom: 1px solid lightgrey;
     }
 
-    .book-li{
+        .book-li{
 
-        display: flex;
-        flex-direction: row;
-    }
-
-
-
-.info-div{
-    padding-left: 20%;
-    height: 100%;
+            display: flex;
+            flex-direction: row;
+        }
 
 
 
-}
+        .info-div{
+            padding-left: 20%;
+            height: 100%;
+        }
 .book-li-img-div{
     max-height: 80%;
     margin: auto;
@@ -500,7 +515,9 @@ font-family: 'Abel', sans-serif;
 
         }
 
-/***************AUTHENTICATED SECTION********************/
+/***************AUTHENTICATED/SIGNED IN SECTION********************/
+
+/***************CONTENT AND WRAPPERS******************/
 
 .authenticated-container {
     height: 100%;
@@ -513,14 +530,16 @@ font-family: 'Abel', sans-serif;
 
     .authenticated-content {
         position: relative;
-        height: 80%;
+        height: 90%;
+        min-height: 500px;
         width: 90%;
         margin: auto;
+        margin-top: 2%;
     }
 
         .content-header {
             border-bottom: 1px solid black;
-            height: 15%;
+            height: 10%;
             width: 100%;
             position: absolute;
             margin: auto;
@@ -579,11 +598,11 @@ font-family: 'Abel', sans-serif;
                         color: purple;
                     }
 
-        .content-my-plants{
+        .content-wrapper{
             border: 1px solid rebeccapurple;
             position: relative;
-            top: 20%;
-            height: 85%;
+            top: 12.5%;
+            height: 92.5%;
             width: 100%;
             margin: auto;
             overflow: hidden;
@@ -593,20 +612,354 @@ font-family: 'Abel', sans-serif;
             flex-wrap: wrap;
             padding: 1%;
 
-
         }
 
-            .my-plants-plant-div{
-                height: 40%;
-                margin-top: 1%;
-                border: 1px solid lightgrey;
-                outline: 4px solid white;
-                border-right: 1px solid lightgrey;
-                list-style-type: none;
-                font-family: 'Abel', sans-serif
+            .content-main{
+                position: relative;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 1%;
+            }
+
+        /**********MY PLANTS*********/
+            .my-plants-button{
+
+                position: absolute;
+                top: 0;
+                right: 15%;
             }
 
 
+            .my-plants-header{
+                    position: relative;
+                    height: 10%;
+                    width: 100%;
+                    display: flex;
+                    border-bottom: 1px solid #333333;
+                }
+                    .my-plants-header-overview{
+                        height: 100%;
+                        width: 80%;
+                        color: rebeccapurple;
+                        font-family: 'Abel', sans-serif;
+                        margin: 0;
+                        margin-left: 2%;
+                        font-weight: 700;
+                    }
+
+                    .my-plants-header-add-btn{
+                        height: 100%;
+                        width: 20%;
+                        color: #ffdd3a;
+                        font-size: 1.5em;
+                        margin: 0;
+                        margin-right: 3%;
+
+                        text-align: right;
+
+                    }
+
+                .my-plants-plant-div{
+                    height: 40%;
+                    margin-top: 1%;
+                    border: 1px solid lightgrey;
+                    outline: 4px solid white;
+                    border-right: 1px solid lightgrey;
+                    list-style-type: none;
+                    font-family: 'Abel', sans-serif;
+                    overflow: hidden;
+                }
+
+                .plant-div-name{
+                    width: 100%;
+                    height: 15%;
+                    font-weight: 700;
+                    color: rebeccapurple;
+                }
+
+                .plant-div-img-wrapper{
+                    width: 100%;
+                    height: 70%;
+                    overflow: hidden;
+                }
+
+                .plant-div-plant-img{
+                    display: block;
+                    max-height: 70%;
+                    max-width: 70%;
+                }
+
+                .plant-div-view-button{
+                    width: 100%;
+                    height: 15%;
+                    margin-top: 0;
+                    font-size: 1em;
+                }
+
+        /********VIEW PLANT SECTION*********/
+
+            /* Main positioning */
+            #Item_VIEW {
+                background-color:#fff;
+                width:100%;
+                height: 100%;
+                position:absolute;
+                top:0;left:0;
+                overflow:hidden;
+                vertical-align: middle;
+                min-height: 400px;
+                min-width: 400px;
+                font-family: Abel, sans-serif;
+                border: 1px solid green;
+                margin-top: auto;
+            }
+
+            #Item_VIEW > div {
+                height: 100%;
+                min-height:300px;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                padding:1em 1.5em;
+                border: 1px solid pink;
+                overflow: hidden;
+            }
+
+            /* Main section */
+
+            #Item_VIEW main {
+                z-index:1010;
+                height:110%;
+                margin:auto;
+                padding:0px;
+                position:relative;
+            }
+
+            /* Main header h6 position */
+            #Item_VIEW main header > div:nth-child(1) h6 {
+                position:relative;
+                bottom:5px;
+                left:35px;
+            }
+
+            /* Main section */
+            #Item_VIEW main section {
+                height:90%;
+            }
+
+            #Item_VIEW main section > div {
+                width:50%;
+                float:left;
+                height:100%;
+            }
+
+            /* Main section views */
+            #Item_VIEW main section > div:nth-child(1) {
+                background-color:white;
+            }
+
+            #Item_VIEW main section > div:nth-child(2) {
+                border:2px solid #333;
+            }
+
+                img-center{
+                background: white;
+
+                }
+
+                .view-plant-img{
+                    display: block;
+                    max-width: 40%;
+                    max-height: 40%;
+                    margin: auto;
+                }
+
+            #Item_VIEW main section > div:nth-child(1) span {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+
+
+            /* Main section controller div */
+            #Item_VIEW main section > div > div {
+                float:left;
+                padding:10px;
+                border:2px solid #333;
+            }
+
+            /* Main section header */
+            #Item_VIEW main section > div > div:nth-child(1) {
+                width:100%;
+                height:35%;
+            }
+
+            /* Main section automatic */
+            #Item_VIEW main section > div > div:nth-child(2) {
+                height:65%;
+                width:50%;
+            }
+
+            /* Main section manual */
+            #Item_VIEW main section > div > div:nth-child(3) {
+                height:65%;
+                width:50%;
+            }
+
+
+            /* Main section controller */
+            #Item_VIEW main section > div > div {
+                position:relative;
+            }
+
+            /* Main section controller headtype clearfix */
+            #Item_VIEW main section > div > div:nth-child(2) > span,
+            #Item_VIEW main section > div > div:nth-child(3) > span {
+                font-size:18px;
+                padding:5px;
+                background-color:#fff;
+                position:absolute;
+                top:-22px;
+                left:15px;
+            }
+
+            #Item_VIEW main section > div > div button {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+
+
+
+            /* Main aside */
+            #Item_VIEW main aside {
+                width:0;
+                clear:both;
+                position:absolute;
+                right:15px; top:42%;
+            }
+
+            #Item_VIEW main aside li {
+                list-style-type:none;
+                margin:0;
+                padding:0;
+                margin-top:10px;
+            }
+
+            /* Figure styling */
+            #Item_VIEW figure {
+                z-index:1005;
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%; height:100%;
+            }
+
+            .figure-corner-div {
+                position:absolute;
+                width:215px;
+                height:215px;
+                background-image: url ('../assets/styles/stylus-corner.png');
+                background-size: 50%;
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+
+            #Item_VIEW figure img:nth-child(1) {
+                right:0;
+                margin-top:10px;
+                margin-right:10px;
+            }
+
+            #Item_VIEW figure img:nth-child(2) {
+                transform:rotateZ(180deg);
+                bottom:0;
+                margin-bottom:10px;
+                margin-left:10px;
+            }
+
+            /* Mobile / Pad */
+            @media screen and (max-width: 699px) {
+
+                #Item_VIEW {
+                    min-height:00px;
+                }
+
+                #Item_VIEW > div {
+                    height:100%;
+                    width:100%;
+                }
+
+                #Item_VIEW main section {
+                    height:90%;
+                }
+
+                #Item_VIEW main section > div {
+                    width:100%;
+                }
+
+                #Item_VIEW main section > div:nth-child(1) {
+                    height:30%;
+                }
+
+                #Item_VIEW main section > div:nth-child(2) {
+                    height:70%;
+                }
+
+                #Item_VIEW figure img {
+                    width:150px;
+                    height:150px;
+                }
+
+                #Item_VIEW main section > div > div:nth-child(1) {
+                    width:100%;
+                    height:50%;
+                }
+
+                /* Main section automatic */
+                #Item_VIEW main section > div > div:nth-child(2) {
+                    height:50%;
+                    width:50%;
+                }
+
+                /* Main section manual */
+                #Item_VIEW main section > div > div:nth-child(3) {
+                    height:50%;
+                    width:50%;
+                }
+
+            }
+
+/*********ADD PLANT*********************/
+
+    .add-plant-input-container{
+        width: 40%;
+        height: 100%;
+
+     }
+        .add-plant-input{
+            display: block;
+            width: 100%;
+            height: 15%!important;
+            border-radius: none!important;
+            border:none!important;
+
+        }
+
+        @media screen and (max-width: 899px){
+            .add-plant-input-container{
+                width: 100%;
+            }
+        }
+
+/********PROFILE MENU******************/
     .profile-menu{
         position: absolute;
         height: 100%;
@@ -616,13 +969,12 @@ font-family: 'Abel', sans-serif;
         border-left: 2px solid rebeccapurple;
         display: flex;
         flex-direction: column;
-        animation: fadeInDown 350ms cubic-bezier(.99,.06,.83,.67);
+        animation: fadeInDown 200ms;
         background: white;
         z-index: 1000;
     }
 
         .profile-menu-button{
-             display: block;
              margin: auto;
              height: 10%;
              width: 70%;
@@ -630,9 +982,17 @@ font-family: 'Abel', sans-serif;
              cursor: pointer;
              background: #efefef;
              color: rebeccapurple;
+
          }
 
         @media screen and (max-width: 899px){
+
+            .authenticated-content {
+                width: 100%;
+            }
+            .content-wrapper {
+                border: none;
+            }
 
             .content-header-title{
                 width: 80%;
