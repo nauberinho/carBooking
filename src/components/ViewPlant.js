@@ -67,9 +67,6 @@ export default class ViewPlant extends Component{
                                                 />
                                             </div>
 
-
-
-
                                     </div>
                                     <div className="text-center">
                                         <span>Manual</span>
@@ -100,7 +97,10 @@ export default class ViewPlant extends Component{
                         </figure>
                     </div>
                     :
-                    <PulseLoaderViewPlant/>
+                    <div className="col-sm-12 column div-cover">
+                        <PulseLoaderViewPlant/>
+                    </div>
+
                 }
             </div>
         )
