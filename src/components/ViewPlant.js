@@ -3,63 +3,106 @@
 import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js'
 import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
+import PulseLoaderViewPlant from './PulseLoader.js';
+import "react-toggle/style.css"
+import Toggle from 'react-toggle'
 
 export default class ViewPlant extends Component{
-    componentDidMount(){
-        let plantId = this.props.match.params.plant;
-        this.props.focusOnPlant(plantId);
+    componentWillMount(){
+        this.forceUpdate()
+            let username = this.props.mainState.auth.sessionUser.username;
+            let plantId = this.props.match.params.plant;
+            console.log(plantId)
+        //Retrieving desired plant from database on render, based on the "plant" parameter of the router.
+            this.props.focusOnPlant(plantId, username);
+            this.props.fetchPlants(username);
     }
     render(){
+        let username = this.props.mainState.auth.sessionUser.username;
         let state = this.props.state;
         let focusPlant = state.focusPlant;
+        console.log(focusPlant, '=FOCUSPLANT')
+        let navButtons = state.plants.map((plant, key ) => {
+
+            return(
+                <Link key={key} className="view-plant-nav-button centered" to={"/signedin/myplants/" + plant._id} onClick={()=> {this.props.focusOnPlant(plant._id, username)}}>
+
+                    {plant._id === this.props.match.params.plant ?
+
+                        <i className="fa fa-square" aria-hidden="true"></i>
+
+                        :
+
+                        <i className="fa fa-square-o" aria-hidden="true"></i>
+                    }
+                </Link>
+            )
+
+        });
         return (
+
             <div className="content content-main" id="Item_VIEW">
-                <div className="container">
-                    <main>
-                        <section>
-                            <div className="img-center column">
-                                <img className="view-plant-img" src={focusPlant.imgUrl} alt={focusPlant.imgUrl}/>
-                            </div>
-                            <div>
-                                <div className="text-center">
-                                    <h3>Header</h3>
-                                    <hr/>
-                                    <p>User description</p>
+
+                { focusPlant._id === this.props.match.params.plant.toString() ?
+                    <div>
+                        <div className="view-plants-nav-wrapper column">
+                            {navButtons}
+                        </div>
+                        <main>
+                            <section>
+                                <div className="img-center column">
+                                    <img className="view-plant-img" src={focusPlant.imgUrl} alt={focusPlant.imgUrl}/>
                                 </div>
-                                <div className="text-center">
-                                    <span>Automatic</span>
-                                    <button className="btn">Toggle</button>
+                                <div>
+                                    <div className="text-center">
+                                        <h5>{focusPlant.name}</h5>
+                                        <hr/>
+                                        <p>{focusPlant.description}</p>
+                                    </div>
+                                    <div className="text-center column">
+                                        <span>Automatic</span>
+                                            <div className="toggle-div centered vetically centered">
+                                                <Toggle
+
+                                                />
+                                            </div>
+
+
+
+
+                                    </div>
+                                    <div className="text-center">
+                                        <span>Manual</span>
+                                        <button className="btn btn-all btn-big" onClick={this.props.water}>Water now</button>
+                                        <Link to="/signedin/myplants" className="btn btn-all" onClick={() => {this.props.removeOnePlant(focusPlant._id, username), this.props.fetchPlants(username), this.props.focusOffPlant()}}>Remove this plant</Link>
+                                    </div>
                                 </div>
-                                <div className="text-center">
-                                    <span>Manual</span>
-                                    <button className="btn btn-all" onClick={this.props.water}>Water now</button>
-                                </div>
-                            </div>
-                        </section>
-                        <aside>
-                            <li>
-                                <div className="bullet">
-                                    <div className="line zero"></div>
-                                    <div className="line one"></div>
-                                    <div className="line two"></div>
-                                    <div className="line three"></div>
-                                    <div className="line four"></div>
-                                    <div className="line five"></div>
-                                    <div className="line six"></div>
-                                    <div className="line seven"></div>
-                                </div>
-                        </li>
-                        </aside>
-                    </main>
-                    <figure>
-                        <div className="figure-corner-div"></div>
-                        <div className="figure-corner-div"></div>
-                    </figure>
-                </div>
+                            </section>
+                            <aside>
+                                <li>
+                                    <div className="bullet">
+                                        <div className="line zero"></div>
+                                        <div className="line one"></div>
+                                        <div className="line two"></div>
+                                        <div className="line three"></div>
+                                        <div className="line four"></div>
+                                        <div className="line five"></div>
+                                        <div className="line six"></div>
+                                        <div className="line seven"></div>
+                                    </div>
+                            </li>
+                            </aside>
+
+                        </main>
+                        <figure>
+                            <div className="figure-corner-div"></div>
+                            <div className="figure-corner-div"></div>
+                        </figure>
+                    </div>
+                    :
+                    <PulseLoaderViewPlant/>
+                }
             </div>
-
-
-
         )
     }
 }

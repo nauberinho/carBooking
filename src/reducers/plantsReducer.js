@@ -2,13 +2,21 @@ import socket from '../socket.js'
 
 const plantsReducer = (state = {
     plants: [],
-    focusPlant: {},
+    focusPlant: {
+        name: "",
+        category: "",
+        description: "",
+        imgUrl: "",
+        slot: Number,
+        __v: 0,
+        _id: ""
+    },
     plantToAdd: {
         name: "",
         category: "",
         description: "",
         imgUrl: "",
-        watering: "",
+        slot: Number,
         __v: 0,
         _id: ""
     }
@@ -19,11 +27,24 @@ const plantsReducer = (state = {
     switch(action.type){
 
         case 'UPDATE_PLANTS':
+            console.log(action.payload)
             newState.plants = action.payload;
             return newState;
 
         case 'FOCUS_ON_PLANT':
             newState.focusPlant = action.payload;
+            return newState;
+
+        case 'FOCUS_OFF_PLANT':
+            newState.focusPlant = {
+                name: "",
+                category: "",
+                description: "",
+                imgUrl: "",
+                slot: Number,
+                __v: 0,
+                _id: ""
+            };
             return newState;
 
         case 'WATER_PLANT':
@@ -36,8 +57,10 @@ const plantsReducer = (state = {
 
         case 'ADD_PLANT':
             let plantToAdd = newState.plantToAdd;
+            let username = action.payload;
             console.log(plantToAdd);
-            socket.emit('user-add-plant', plantToAdd);
+            socket.emit('user-add-plant', {username: username, plant: plantToAdd});
+            socket.on('user-add-plant-confirmation', (data) => {console.log('plant added', data)});
             return newState;
 
         default:

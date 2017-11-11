@@ -18,8 +18,10 @@ import {
     navigate,
     water,
     focusOnPlant,
+    focusOffPlant,
     updatePlantToAdd,
-    addPlant
+    addPlant,
+    removeOnePlant
 
 } from '../actions/commonActions.js';
 
@@ -30,17 +32,20 @@ import React, { Component } from 'react';
 class App extends Component {
 
     componentDidMount(){
-        console.log(this)
 
-        this.props.fetchPlants();
+        console.log(this)
         socket.on('water-confirmation', function(data) {
             console.log(data)
         })
+        socket.on('user-connection-confirmation', function(data) {
+            console.log('CONNECTED TO SERVER')
+        })
+
 
     }
 
   render() {
-
+      let state = this.props.mainState;
       return (
 
           <BrowserRouter>
@@ -67,8 +72,11 @@ class App extends Component {
                           }>
                           </Route>
 
+
+
                           <Route path="/signedin" render={(props) =>
                               (
+                                  state.auth.signedIn === true?
                                   <Authenticated
                                       state={this.props.authenticatedState}
                                       plantsState={this.props.plantsState}
@@ -83,17 +91,21 @@ class App extends Component {
                                       focusOnPlant={this.props.focusOnPlant}
                                       updatePlantToAdd={this.props.updatePlantToAdd}
                                       addPlant={this.props.addPlant}
+                                      removeOnePlant={this.props.removeOnePlant}
+                                      focusOffPlant={this.props.focusOffPlant}
                                   />
+                              :
+                              <Redirect to="/"/>
                               )
                           }>
-
-                              <Route exact path="/" render={(props) =>
-                                  (
-                                      <Redirect to="/home"/>
-                                  )
-                              }>
-                              </Route>
                           </Route>
+                  <Route exact path="/" render={(props) =>
+                      (
+                          <Redirect to="/home"/>
+                      )
+                  }>
+                  </Route>
+
               </div>
           </BrowserRouter>
 
@@ -162,9 +174,14 @@ const mapDispatchToProps = (dispatch) => {
             },
 
 
-            focusOnPlant: (plantId) => {
+            focusOnPlant: (plantId, username) => {
 
-            dispatch(focusOnPlant(plantId))
+            dispatch(focusOnPlant(plantId, username))
+            },
+
+            focusOffPlant: (plantId, username) => {
+
+                dispatch(focusOffPlant(plantId, username))
             },
 
             water: (event) => {
@@ -175,10 +192,16 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(updatePlantToAdd(event))
             },
 
-            addPlant: (event) => {
-                dispatch( addPlant(event))
+            addPlant: (username) => {
+                dispatch( addPlant(username))
+
+            },
+            removeOnePlant: (plantId, username) => {
+                dispatch( removeOnePlant(plantId, username))
 
             }
+
+
         }
 };
 

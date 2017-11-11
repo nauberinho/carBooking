@@ -83,11 +83,21 @@ export function updatePlantToAdd(event){
     }
 }
 
-export function addPlant(event){
+export function addPlant(username){
 
     return {
         type: 'ADD_PLANT',
-        payload: event
+        payload: username
+    }
+}
+
+export function fetchPlants(username){
+    socket.emit('user-get-plants', ({username: username}));
+    return (dispatch) => {
+        socket.on('user-get-plants-confirmation', function(data){
+            dispatch({type: 'UPDATE_PLANTS', payload: data})
+        })
+
     }
 }
 
@@ -102,35 +112,70 @@ export function water(plantId){
     );
     return (dispatch) => {
         socket.on('user-water-plant-confirmation', function(data){
-            dispatch({type: 'WATER_PLANT', payload: data})
+            dispatch({type: 'WATER_PLANT', payload: data.plants})
         })
 
     }
 }
 
-export function fetchPlants(){
-    let userId = 1234;
-    socket.emit('user-get-plants', ({id: userId}));
-    return (dispatch) => {
-        socket.on('user-get-plants-confirmation', function(data){
-            dispatch({type: 'UPDATE_PLANTS', payload: data})
-        })
 
-    }
-}
 
-export function focusOnPlant (plantId){
+export function focusOnPlant (plantId, username){
+    console.log("plantID:", plantId)
+    setTimeout(function(){
+
+
+
     socket.emit('user-get-one-plant', (
             {
                 plant: {
                     id: plantId
+                },
+                user : {
+                    username
+                }
+            }
+        )
+    );
+    }, 500)
+    return (dispatch) => {
+        socket.on('user-get-one-plant-confirmation', function(data){
+            let plantToFocusOn;
+            for(var plant in data){
+                if(data[plant]._id === plantId){
+                    plantToFocusOn = data[plant];
+                }
+            }
+            dispatch({type: 'FOCUS_ON_PLANT', payload: plantToFocusOn})
+        })
+
+    }
+}
+
+export function focusOffPlant (plantId, username){
+    return {
+        type: 'FOCUS_OFF_PLANT'
+    }
+}
+
+
+export function removeOnePlant(plantId, username){
+    console.log('remove one plant')
+    socket.emit('user-remove-one-plant', (
+            {
+                plant: {
+                    id: plantId
+                },
+                user: {
+                    username: username
                 }
             }
         )
     );
     return (dispatch) => {
-        socket.on('user-get-one-plant-confirmation', function(data){
-            dispatch({type: 'FOCUS_ON_PLANT', payload: data})
+        socket.on('user-remove-one-plant-confirmation', function(data){
+            console.log('plant removed')
+            dispatch({type: 'UPDATE_PLANTS', payload: data})
         })
 
     }

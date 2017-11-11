@@ -15,19 +15,9 @@ export default class ProfileMenu extends Component {
                         My plants
                     </div>
                 </NavLink>
-                <NavLink to="/signedin/water" className="profile-menu-button btn-all column" id="water" onClick={this.props.navigate}>
-                    <div className="vertically centered">
-                        Water
-                    </div>
-                </NavLink>
                 <NavLink to="/signedin/myprofile" className="profile-menu-button btn-all column" id="myprofile" onClick={this.props.navigate}>
                     <div className="vertically centered">
                         My profile
-                    </div>
-                </NavLink>
-                <NavLink to="/signedin/updateplants" className="profile-menu-button btn-all column" id="changeplants" onClick={this.props.navigate}>
-                    <div className="vertically centered">
-                        Update plants
                     </div>
                 </NavLink>
                 <NavLink to="/signedin/mysettings" className="profile-menu-button btn-all column" id="mysettings" onClick={this.props.navigate}>

@@ -8,6 +8,21 @@ const mainReducer = (state = {
             username: "",
             password: ""
         },
+        sessionUser: {
+            username: "test3",
+            favoritePlants: "Wild plants",
+            myStations: [
+                {
+                    name: "corner 1",
+                    plants: [
+                        {
+                            name: "My Rose",
+                        }
+                    ]
+                }
+            ]
+        },
+        signedIn: true,
         create: false,
         signIn: false
     },
@@ -17,31 +32,12 @@ const mainReducer = (state = {
     switch(action.type){
 
         case 'HANDLE_SIGN_IN': // Sends state's authObject to the database and receives a response.
-            newState.auth.user = true;
-            /*
-            let pushSubmit = new XMLHttpRequest();
-            pushSubmit.open('POST', 'http://localhost:7000/api/signin', false);
-            pushSubmit.setRequestHeader("Content-Type", "application/json");
-            pushSubmit.onreadystatechange = function () {
-                console.log('onreadystatechange')
-                if (this.readyState === 4 && this.status === 200) {
+            socket.emit('system-login-user', newState.auth.authObject);
+            socket.on('system-login-user-confirmation', function(data){
+                console.log('user was signed in')
+                newState.auth.signedIn = true;
+            });
 
-                        let user = JSON.parse( pushSubmit.response);
-                        newState.auth.authObject = user;
-                        if(user.type === "admin"){
-                            newState.auth.admin = true;
-                            newState.auth.user = true;
-                        }
-                        else if(user.type === "user"){
-                            newState.auth.admin = false;
-                            newState.auth.user = true;
-                        }
-                        console.log(user)
-
-                }
-            };
-            pushSubmit.send(JSON.stringify(newState.auth.authObject));
-            */
             return newState;
 
         case 'HANDLE_SIGN_OUT': // Sends state's authObject to the database and receives a response.
@@ -49,29 +45,6 @@ const mainReducer = (state = {
             newState.auth.user = false;
             newState.auth.signIn = false;
             newState.userMenu = "hidden";
-            /*
-            let signOutReq = new XMLHttpRequest();
-            signOutReq.open('POST', 'http://localhost:7000/api/signout', false);
-            signOutReq.setRequestHeader("Content-Type", "application/json");
-            signOutReq.onreadystatechange = function () {
-                console.log('onreadystatechange')
-                if (this.readyState === 4 && this.status === 200) {
-
-                        let user = JSON.parse( signOutReq.response);
-                        newState.auth.authObject = {
-                        username: "",
-                            password: "",
-                            signedIn: false,
-                            type: ""
-                    };
-                            newState.auth.admin = false;
-                            newState.auth.user = false;
-                            newState.view = "home"
-                }
-            }
-            signOutReq.send(JSON.stringify(newState.auth.authObject));
-            */
-
             return newState;
 
             case 'CHANGE_VIEW': //Changes website view based on the click's (event) data-id (event.target.getAttribute) which contains a message to this reducer.
@@ -100,13 +73,15 @@ const mainReducer = (state = {
 
             case 'HANDLE_CREATE_ACCOUNT': // Sends state's authObject to the database, which then creates an account.
                  let userToAdd = newState.auth.authObject;
-                 socket.emit('system-add-user', userToAdd)
+                 socket.emit('system-add-user', userToAdd);
+                 socket.on('system-add-user-confirmation', function(data){
+                     console.log('received confirmation')
 
+                })
                  return newState;
 
             case 'UPDATE_AUTH_OBJECT': // Updates state's authObject when user modifies the input fields under a sign in or create account session.
                 newState.auth.authObject[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
-
                 return newState;
 
             default:
