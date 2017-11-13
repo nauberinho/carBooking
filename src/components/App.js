@@ -93,6 +93,7 @@ class App extends Component {
                                       addPlant={this.props.addPlant}
                                       removeOnePlant={this.props.removeOnePlant}
                                       focusOffPlant={this.props.focusOffPlant}
+                                      stationsState={this.props.stationsState}
                                   />
                               :
                               <Redirect to="/"/>
@@ -117,9 +118,9 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         mainState: state.mainReducer,
-        carsState: state.carsReducer,
         plantsState: state.plantsReducer,
-        authenticatedState: state.authenticatedReducer
+        authenticatedState: state.authenticatedReducer,
+        stationsState: state.stationsReducer
     }
 };
 

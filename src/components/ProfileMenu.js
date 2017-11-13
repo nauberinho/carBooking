@@ -15,6 +15,11 @@ export default class ProfileMenu extends Component {
                         My plants
                     </div>
                 </NavLink>
+                <NavLink to="/signedin/mystations" className="profile-menu-button btn-all column" id="mystations" onClick={this.props.navigate}>
+                    <div className="vertically centered">
+                        My stations
+                    </div>
+                </NavLink>
                 <NavLink to="/signedin/myprofile" className="profile-menu-button btn-all column" id="myprofile" onClick={this.props.navigate}>
                     <div className="vertically centered">
                         My profile

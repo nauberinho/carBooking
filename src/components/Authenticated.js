@@ -7,6 +7,7 @@ import ViewPlant from './ViewPlant.js';
 import AddPlant from './AddPlant.js';
 import ProfileMenu from './ProfileMenu.js';
 import MyProfile from './MyProfile.js';
+import MyStations from './MyStations.js';
 
 export default class Authenticated extends Component {
 
@@ -58,6 +59,19 @@ export default class Authenticated extends Component {
                                             <Redirect to="/signedin/myplants"/>
                                         )
                                     }>
+                                    </Route>
+
+                                    <Route exact path="/signedin/mystations" render={(props) => (
+                                        <MyStations
+                                            state={state}
+                                            plantsState={this.props.plantsState}
+                                            stationsState={this.props.stationsState}
+                                            match={this.props.match}
+                                            mainState={this.props.mainState}
+                                            fetchPlants={this.props.fetchPlants}
+                                            fetchStations={this.props.fetchStations}
+                                        />
+                                    )}>
                                     </Route>
 
                                     <Route exact path="/signedin/myplants" render={(props) => (

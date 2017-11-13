@@ -5,8 +5,8 @@ const mainReducer = (state = {
     userMenu: "hidden",
     auth: {
         authObject: {
-            username: "",
-            password: ""
+            username: "Nikke",
+            password: "bror"
         },
         sessionUser: {
             username: "test3",

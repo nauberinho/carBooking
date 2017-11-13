@@ -1,7 +1,9 @@
 import socket from '../socket.js'
 
 const plantsReducer = (state = {
+
     plants: [],
+    
     focusPlant: {
         name: "",
         category: "",
@@ -11,6 +13,7 @@ const plantsReducer = (state = {
         __v: 0,
         _id: ""
     },
+
     plantToAdd: {
         name: "",
         category: "",
@@ -20,6 +23,7 @@ const plantsReducer = (state = {
         __v: 0,
         _id: ""
     }
+
 }, action) => {
     let newState = {...state};
     let plantsList;
@@ -66,5 +70,6 @@ const plantsReducer = (state = {
         default:
             return newState;
         }
-}
+};
+
 export default plantsReducer;

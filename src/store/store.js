@@ -11,12 +11,14 @@ import thunk from 'redux-thunk';
 import mainReducer from '../reducers/mainReducer';
 import plantsReducer from '../reducers/plantsReducer';
 import authenticatedReducer from '../reducers/authenticatedReducer';
+import stationsReducer from '../reducers/stationsReducer';
 
 export default createStore(
     combineReducers({
         mainReducer,
         plantsReducer,
-        authenticatedReducer
+        authenticatedReducer,
+        stationsReducer
     }),
     applyMiddleware(createLogger(), thunk)
 );
