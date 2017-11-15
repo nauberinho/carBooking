@@ -67,6 +67,7 @@ export default class ViewStation extends Component{
 
                                 <div className="my-plants-header">
                                     <div className="my-plants-header-overview column">
+                                        <div className="vertically-centered green-text"><h3>{focusStation.name}</h3></div>
                                         <div className="vertically-centered">{focusStation.plants.length} plants registered on this station</div>
                                     </div>
                                     <Link to={"/signedin/mystations/" + stationParam + "/addplant"} className="my-plants-header-add-btn btn-all column">

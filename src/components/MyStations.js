@@ -34,6 +34,7 @@ export default class MyStations extends Component {
 
                         <div className="my-plants-header">
                             <div className="my-plants-header-overview column">
+
                                 <div className="vertically-centered">You've got {stations.length} stations registered</div>
                             </div>
                             <Link to="/signedin/mystations/addstation" className="my-plants-header-add-btn btn-all column">

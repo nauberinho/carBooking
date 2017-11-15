@@ -192,7 +192,7 @@ export function removeOnePlant(plantName, username, stationName){
     );
     return (dispatch) => {
         socket.on('user-remove-one-plant-confirmation', function(data){
-            dispatch({type: 'UPDATE_STATIONS', payload: data})
+            dispatch({type: 'FOCUS_ON_STATION', payload: data})
         })
 
     }
