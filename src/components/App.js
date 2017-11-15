@@ -22,7 +22,9 @@ import {
     updatePlantToAdd,
     addPlant,
     removeOnePlant,
-    fetchStations
+    fetchStations,
+    fetchOneStation
+
 
 } from '../actions/commonActions.js';
 
@@ -83,7 +85,6 @@ class App extends Component {
                                       plantsState={this.props.plantsState}
                                       initRender={this.props.initRender}
                                       fetchPlants={this.props.fetchPlants}
-                                      fetchStations={this.props.fetchStations}
                                       toggleMenu={this.props.toggleMenu}
                                       mainState={this.props.mainState}
                                       handleSignOut={this.props.handleSignOut}
@@ -96,6 +97,8 @@ class App extends Component {
                                       removeOnePlant={this.props.removeOnePlant}
                                       focusOffPlant={this.props.focusOffPlant}
                                       stationsState={this.props.stationsState}
+                                      fetchStations={this.props.fetchStations}
+                                      fetchOneStation={this.props.fetchOneStation}
                                   />
                               :
                               <Redirect to="/"/>
@@ -205,7 +208,16 @@ const mapDispatchToProps = (dispatch) => {
             removeOnePlant: (plantId, username) => {
                 dispatch( removeOnePlant(plantId, username))
 
-            }
+            },
+
+            fetchStations: (username) => {
+                dispatch( fetchStations(username))
+
+            },
+
+            fetchOneStation: (username, stationName) => {
+                dispatch( fetchOneStation(username, stationName))
+            },
 
 
         }

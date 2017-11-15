@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js';
 import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
 import MyPlants from './MyPlants.js';
+import ViewStation from './ViewStation.js';
 import ViewPlant from './ViewPlant.js';
 import AddPlant from './AddPlant.js';
 import ProfileMenu from './ProfileMenu.js';
 import MyProfile from './MyProfile.js';
 import MyStations from './MyStations.js';
+
 
 export default class Authenticated extends Component {
 
@@ -66,24 +68,31 @@ export default class Authenticated extends Component {
                                             state={state}
                                             plantsState={this.props.plantsState}
                                             stationsState={this.props.stationsState}
-                                            match={this.props.match}
+                                            match={props.match}
                                             mainState={this.props.mainState}
                                             fetchPlants={this.props.fetchPlants}
                                             fetchStations={this.props.fetchStations}
                                         />
+
+
                                     )}>
                                     </Route>
 
-                                    <Route exact path="/signedin/myplants" render={(props) => (
-                                        <MyPlants
-                                        state={state}
-                                        plantsState={this.props.plantsState}
-                                        match={this.props.match}
-                                        mainState={this.props.mainState}
-                                        fetchPlants={this.props.fetchPlants}
+                                    <Route path="/signedin/mystations/:station" render={(props) => (
+                                        <ViewStation
+                                            state={state}
+                                            plantsState={this.props.plantsState}
+                                            match={props.match}
+                                            mainState={this.props.mainState}
+                                            fetchPlants={this.props.fetchPlants}
+                                            fetchStations={this.props.fetchStations}
+                                            fetchOneStation={this.props.fetchOneStation}
+                                            stationsState={this.props.stationsState}
+
                                         />
                                     )}>
                                     </Route>
+
 
                                     <Route path="/signedin/addplant" render={(props) => (
                                         <AddPlant
@@ -95,8 +104,7 @@ export default class Authenticated extends Component {
                                         />
                                     )}>
                                     </Route>
-
-                                    <Route path="/signedin/myplants/:plant" render={(props) => (
+                                    <Route path="/signedin/mystations/:station/:plant" render={(props) => (
                                         <ViewPlant
                                             match={props.match}
                                             water={this.props.water}
@@ -110,6 +118,7 @@ export default class Authenticated extends Component {
                                     )}>
 
                                     </Route>
+
 
                                     <Route path="/signedin/myprofile" render={(props) => (
                                         <MyProfile
