@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-rout
 
 export default class MyPlants extends Component {
     componentDidMount(){
-
         let sessionUser = this.props.mainState.auth.sessionUser;
         let username = sessionUser.username;
         this.props.fetchPlants(username);

@@ -21,7 +21,8 @@ import {
     focusOffPlant,
     updatePlantToAdd,
     addPlant,
-    removeOnePlant
+    removeOnePlant,
+    fetchStations
 
 } from '../actions/commonActions.js';
 
@@ -82,6 +83,7 @@ class App extends Component {
                                       plantsState={this.props.plantsState}
                                       initRender={this.props.initRender}
                                       fetchPlants={this.props.fetchPlants}
+                                      fetchStations={this.props.fetchStations}
                                       toggleMenu={this.props.toggleMenu}
                                       mainState={this.props.mainState}
                                       handleSignOut={this.props.handleSignOut}
@@ -174,6 +176,9 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(fetchPlants(data))
             },
 
+            fetchStations: (data) => {
+                dispatch(fetchStations(data))
+            },
 
             focusOnPlant: (plantId, username) => {
 

@@ -7,7 +7,7 @@ export default class MyStations extends Component {
         let sessionUser = this.props.mainState.auth.sessionUser;
         let username = sessionUser.username;
         let password = sessionUser.password;
-        //this.props.fetchStations(username);
+        this.props.fetchStations('Gunz');
     }
     render(){
         let state = this.props.state;

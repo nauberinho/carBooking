@@ -84,7 +84,7 @@ export function updatePlantToAdd(event){
 }
 
 export function fetchStations(username){
-    socket.emit('user-get-stations', ({username: username}));
+    socket.emit('user-get-stations', ({user: {username: username}}));
     return (dispatch) => {
         socket.on('user-get-stations-confirmation', function(data){
             dispatch({type: 'UPDATE_STATIONS', payload: data})
