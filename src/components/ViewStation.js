@@ -11,7 +11,7 @@ export default class ViewStation extends Component{
         let username = this.props.mainState.auth.sessionUser.username;
         let stationName= this.props.match.params.station;
         console.log(this.props);
-        this.props.fetchStations(username)
+        this.props.fetchStations(username);
         //Retrieving desired station from database on render, based on the "station" parameter of the router.
         this.props.fetchOneStation(username, stationName);
     }
@@ -40,9 +40,8 @@ export default class ViewStation extends Component{
             });
 
             let plantsList = state.focusStation.plants.map(function (plant, key) {
-
                 return (
-                    <Link to={"/signedin/mystations/" + plant._id} key={key}
+                    <Link to={"/signedin/mystations/" + stationParam + "/" +  plant._id} key={key}
                           className="my-plants-plant-div col-xs-6 col-sm-4 col-md-3 vertically-centered">
                         <div className="plant-div-name column">
                             <div className="centered">{plant.name}</div>
@@ -60,25 +59,36 @@ export default class ViewStation extends Component{
 
             return (
 
-                <div className="content content-main" id="Item_VIEW">
 
-                    { focusStation.name === stationParam ?
-                        <div>
-                            {focusStation.name}
-                            <div className="column">
+                    <main className="content content-main">
 
-                                {plantsList}
-                            </div>
-                            {navButtons}
+                        {focusStation.name === stationParam ?
 
-                        </div>
+                            <section className="div-cover">
+
+                                <div className="my-plants-header">
+                                    <div className="my-plants-header-overview column">
+                                        <div className="vertically-centered">{focusStation.plants.length} plants registered on this station</div>
+                                    </div>
+                                    <Link to={"/signedin/mystations/" + stationParam + "/addplant"} className="my-plants-header-add-btn btn-all column">
+                                        <div className="vertically-centered"><i className="material-icons">add</i></div>
+                                    </Link>
+                                </div>
+                                <div className="display-plants-div">
+                                    {plantsList}
+                                </div>
+                            </section>
+
+
+
                         :
-                        <div className="col-sm-12 column div-cover">
-                            <PulseLoaderViewstation/>
-                        </div>
 
-                    }
-                </div>
+                            <section className="col-sm-12 column div-cover">
+                                <PulseLoaderViewstation/>
+                            </section>
+                            }
+                    </main>
+
             )
         }
     }

@@ -28,5 +28,5 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "http://ahlbomgunnar.github.io/CHIP_Watering"
+  "homepage": "http://nauberinho.github.io/Sigma-Watering-CHIP"
 }

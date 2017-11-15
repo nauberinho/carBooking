@@ -58,7 +58,7 @@ export default class Authenticated extends Component {
 
                                     <Route exact path="/signedin" render={(props) =>
                                         (
-                                            <Redirect to="/signedin/myplants"/>
+                                            <Redirect to="/signedin/mystations"/>
                                         )
                                     }>
                                     </Route>
@@ -78,7 +78,22 @@ export default class Authenticated extends Component {
                                     )}>
                                     </Route>
 
-                                    <Route path="/signedin/mystations/:station" render={(props) => (
+                                    <Route exact path="/signedin/mystations/:station" render={(props) => (
+                                        <ViewStation
+                                            state={state}
+                                            plantsState={this.props.plantsState}
+                                            match={props.match}
+                                            mainState={this.props.mainState}
+                                            fetchPlants={this.props.fetchPlants}
+                                            fetchStations={this.props.fetchStations}
+                                            fetchOneStation={this.props.fetchOneStation}
+                                            stationsState={this.props.stationsState}
+
+                                        />
+                                    )}>
+                                    </Route>
+
+                                    <Route exact path="/signedin/mystations/addstation" render={(props) => (
                                         <ViewStation
                                             state={state}
                                             plantsState={this.props.plantsState}
@@ -94,13 +109,17 @@ export default class Authenticated extends Component {
                                     </Route>
 
 
-                                    <Route path="/signedin/addplant" render={(props) => (
+                                    <Route exact path="/signedin/mystations/:station/addplant" render={(props) => (
                                         <AddPlant
                                             state={state}
+                                            match={props.match}
                                             plantsState={this.props.plantsState}
                                             updatePlantToAdd={this.props.updatePlantToAdd}
                                             addPlant={this.props.addPlant}
                                             mainState={this.props.mainState}
+                                            fetchStations={this.props.fetchStations}
+                                            fetchOneStation={this.props.fetchOneStation}
+                                            stationsState={this.props.stationsState}
                                         />
                                     )}>
                                     </Route>
@@ -109,11 +128,13 @@ export default class Authenticated extends Component {
                                             match={props.match}
                                             water={this.props.water}
                                             focusOnPlant={this.props.focusOnPlant}
-                                            state={this.props.plantsState}
+                                            state={this.props.stationsState}
                                             mainState={this.props.mainState}
                                             fetchPlants={this.props.fetchPlants}
                                             removeOnePlant={this.props.removeOnePlant}
                                             focusOffPlant={this.props.focusOffPlant}
+                                            fetchStations={this.props.fetchStations}
+                                            fetchOneStation={this.props.fetchOneStation}
                                         />
                                     )}>
 

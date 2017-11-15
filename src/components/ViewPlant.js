@@ -10,40 +10,40 @@ import Toggle from 'react-toggle'
 export default class ViewPlant extends Component{
     componentWillMount(){
         this.forceUpdate()
-            let username = this.props.mainState.auth.sessionUser.username;
-            let plantId = this.props.match.params.plant;
-            console.log(this.props)
+        let username = this.props.mainState.auth.sessionUser.username;
+        console.log(this.props.match)
+        let plantId= this.props.match.params.plant;
+        let stationName = this.props.match.params.station;
+        console.log(this.props)
         //Retrieving desired plant from database on render, based on the "plant" parameter of the router.
-            this.props.focusOnPlant(plantId, username);
-            this.props.fetchPlants(username);
+        this.props.fetchStations(username);
+        this.props.fetchOneStation(username, stationName);
+        this.props.focusOnPlant(plantId, username, stationName);
+
     }
     render(){
         let username = this.props.mainState.auth.sessionUser.username;
+        let stationParam = this.props.match.params.station;
         let state = this.props.state;
         let focusPlant = state.focusPlant;
-        console.log(focusPlant, '=FOCUSPLANT')
-        let navButtons = state.plants.map((plant, key ) => {
-
+        let focusStation = state.focusStation;
+        let navButtons = state.focusStation.plants.map((plant, key ) => {
             return(
-                <Link key={key} className="view-plant-nav-button centered" to={"/signedin/myplants/" + plant._id} onClick={()=> {this.props.focusOnPlant(plant._id, username)}}>
+                <Link key={key} className="view-plant-nav-button centered" to={"/signedin/mystations/" + stationParam + "/" +  plant._id} onClick={()=> {this.props.focusOnPlant(plant._id, username, stationParam)}}>
 
                     {plant._id === this.props.match.params.plant ?
-
                         <i className="fa fa-square" aria-hidden="true"></i>
-
                         :
-
                         <i className="fa fa-square-o" aria-hidden="true"></i>
                     }
                 </Link>
             )
-
         });
         return (
 
             <div className="content content-main" id="Item_VIEW">
 
-                { focusPlant._id === this.props.match.params.plant.toString() ?
+                { focusPlant._id === this.props.match.params.plant ?
                     <div>
                         <div className="view-plants-nav-wrapper column">
                             {navButtons}
@@ -63,10 +63,8 @@ export default class ViewPlant extends Component{
                                         <span>Automatic</span>
                                             <div className="toggle-div centered vetically centered">
                                                 <Toggle
-
                                                 />
                                             </div>
-
                                     </div>
                                     <div className="text-center">
                                         <span>Manual</span>

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
+import PulseLoaderViewstation from './PulseLoader.js';
 
 export default class MyStations extends Component {
     componentWillMount(){
-
         let sessionUser = this.props.mainState.auth.sessionUser;
         let username = sessionUser.username;
         let password = sessionUser.password;
-        this.props.fetchStations('skrra');
+        this.props.fetchStations(username);
         console.log(this.props)
     }
     render(){
@@ -15,24 +15,46 @@ export default class MyStations extends Component {
         let stations = this.props.stationsState.stations;
         let stationsList = stations.map(function(station, key){
             return (
-                <Link to={"/signedin/mystations/" + station.name} key={key} className="my-stations-station-div col-xs-6 col-sm-4 col-md-3">
-                <div>{station.name}</div>
+
+                <Link to={"/signedin/mystations/" + station.name} key={key} className="my-plants-plant-div col-xs-6 col-sm-4 col-md-3">
+                    <div className="plant-div-name column"><div className="centered">{station.name}</div></div>
+                    <div className="plant-div-name column"><div className="centered">{station.plants.length} plants</div></div>
+                    <div className="btn-all btn-big plant-div-view-button">View</div>
                 </Link>
+
             )
         });
         return (
-            <div className="content content-main">
-                <div className="my-stations-header">
-                    <div className="my-stations-header-overview column">
-                        <div className="vertically-centered">
-                            You've got {stations.length} stations registered
+
+            <main className="content content-main">
+
+                {stations.length !== 0 ?
+
+                    <section className="div-cover">
+
+                        <div className="my-plants-header">
+                            <div className="my-plants-header-overview column">
+                                <div className="vertically-centered">You've got {stations.length} stations registered</div>
+                            </div>
+                            <Link to="/signedin/mystations/addstation" className="my-plants-header-add-btn btn-all column">
+                                <div className="vertically-centered"><i className="material-icons">add</i></div>
+                            </Link>
                         </div>
-                    </div>
-                </div>
-                <div className="display-stations-div">
-                    {stationsList}
-                </div>
-            </div>
+                        <div className="display-plants-div">
+                            {stationsList}
+                        </div>
+                    </section>
+
+
+
+                    :
+
+                    <section className="col-sm-12 column div-cover">
+                        <PulseLoaderViewstation/>
+                    </section>
+                }
+            </main>
+
         )
     }
 }

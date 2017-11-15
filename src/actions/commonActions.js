@@ -116,7 +116,7 @@ export function addPlant(username){
 
     return {
         type: 'ADD_PLANT',
-        payload: username
+        payload: {username: username}
     }
 }
 
@@ -149,30 +149,22 @@ export function water(plantId){
 
 
 
-export function focusOnPlant (plantId, username){
-    console.log("plantID:", plantId)
-    socket.emit('user-get-one-plant', (
+export function focusOnPlant (plantId, username, stationName){
+    socket.emit('user-get-one-station', (
             {
-                plant: {
-                    id: plantId
+                user: {
+                    username: username
                 },
-                user : {
-                    username
+                station: {
+                    name: stationName
                 }
             }
         )
     );
     return (dispatch) => {
-        socket.on('user-get-one-plant-confirmation', function(data){
-            let plantToFocusOn;
-            for(var plant in data){
-                if(data[plant]._id === plantId){
-                    plantToFocusOn = data[plant];
-                }
-            }
-            dispatch({type: 'FOCUS_ON_PLANT', payload: plantToFocusOn})
+        socket.on('user-get-one-station-confirmation', function(data){
+            dispatch({type: 'FOCUS_ON_PLANT', payload:{station: data, plantId: plantId}})
         })
-
     }
 }
 

@@ -179,13 +179,9 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(fetchPlants(data))
             },
 
-            fetchStations: (data) => {
-                dispatch(fetchStations(data))
-            },
+            focusOnPlant: (plantId,  username, stationName) => {
 
-            focusOnPlant: (plantId, username) => {
-
-            dispatch(focusOnPlant(plantId, username))
+            dispatch(focusOnPlant(plantId, username, stationName))
             },
 
             focusOffPlant: (plantId, username) => {

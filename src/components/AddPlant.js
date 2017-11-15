@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
 
 export default class AddPlant extends Component {
+    componentDidMount(){
+        let username = this.props.mainState.auth.sessionUser.username;
+        let stationName = this.props.match.params.station;
+        this.props.fetchStations(username);
+        this.props.fetchOneStation(username, stationName);
+    }
     render(){
         let username = this.props.mainState.auth.sessionUser.username;
         let state = this.props.state;
@@ -27,6 +33,12 @@ export default class AddPlant extends Component {
 
 
                 </div>
+                {this.props.stationsState.message.length > 0 ?
+
+                <div>{this.props.stationsState.message}</div>
+
+                    : null
+                }
             </div>
         )
     }

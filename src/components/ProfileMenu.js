@@ -10,11 +10,6 @@ export default class ProfileMenu extends Component {
         let state = this.props.state;
         return (
             <div className="profile-menu">
-                <NavLink to="/signedin/myplants" className="profile-menu-button btn-all column" id="myplants" onClick={this.props.navigate}>
-                    <div className="vertically centered">
-                        My plants
-                    </div>
-                </NavLink>
                 <NavLink to="/signedin/mystations" className="profile-menu-button btn-all column" id="mystations" onClick={this.props.navigate}>
                     <div className="vertically centered">
                         My stations
