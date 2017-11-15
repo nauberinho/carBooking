@@ -5,11 +5,11 @@ const mainReducer = (state = {
     userMenu: "hidden",
     auth: {
         authObject: {
-            username: "Nikke",
+            username: "skrra",
             password: "bror"
         },
         sessionUser: {
-            username: "test3",
+            username: "skrra",
             favoritePlants: "Wild plants",
             myStations: [
                 {

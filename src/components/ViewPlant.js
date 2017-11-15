@@ -12,7 +12,7 @@ export default class ViewPlant extends Component{
         this.forceUpdate()
             let username = this.props.mainState.auth.sessionUser.username;
             let plantId = this.props.match.params.plant;
-            console.log(plantId)
+            console.log(this.props)
         //Retrieving desired plant from database on render, based on the "plant" parameter of the router.
             this.props.focusOnPlant(plantId, username);
             this.props.fetchPlants(username);

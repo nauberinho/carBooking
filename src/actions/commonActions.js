@@ -84,10 +84,29 @@ export function updatePlantToAdd(event){
 }
 
 export function fetchStations(username){
-    socket.emit('user-get-stations', ({username: username}));
+    socket.emit('user-get-stations', ({user:{username: username}}));
     return (dispatch) => {
         socket.on('user-get-stations-confirmation', function(data){
             dispatch({type: 'UPDATE_STATIONS', payload: data})
+        })
+    }
+}
+
+export function fetchOneStation(username, stationName){
+    socket.emit('user-get-one-station', (
+        {
+            user: {
+                username: username
+             },
+            station: {
+                name: stationName
+            }
+        }
+        )
+    );
+    return (dispatch) => {
+        socket.on('user-get-one-station-confirmation', function(data){
+            dispatch({type: 'FOCUS_ON_STATION', payload: data})
         })
     }
 }
@@ -131,10 +150,6 @@ export function water(plantId){
 
 export function focusOnPlant (plantId, username){
     console.log("plantID:", plantId)
-    setTimeout(function(){
-
-
-
     socket.emit('user-get-one-plant', (
             {
                 plant: {
@@ -146,7 +161,6 @@ export function focusOnPlant (plantId, username){
             }
         )
     );
-    }, 500)
     return (dispatch) => {
         socket.on('user-get-one-plant-confirmation', function(data){
             let plantToFocusOn;

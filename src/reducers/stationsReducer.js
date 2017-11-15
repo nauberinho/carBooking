@@ -4,14 +4,10 @@ const stationsReducer = (state = {
 
     stations: [{name: 'myStation'}],
 
-    focusPlant: {
+    focusStation: {
         name: "",
-        category: "",
-        description: "",
-        imgUrl: "",
-        slot: Number,
-        __v: 0,
-        _id: ""
+        key: "",
+        plants: []
     },
 
 }, action) => {
@@ -26,7 +22,7 @@ const stationsReducer = (state = {
             return newState;
 
         case 'FOCUS_ON_STATION':
-            newState.focusPlant = action.payload;
+            newState.focusStation = action.payload;
             return newState;
 
         case 'FOCUS_OFF_STATION':
