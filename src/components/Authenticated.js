@@ -123,7 +123,7 @@ export default class Authenticated extends Component {
                                         />
                                     )}>
                                     </Route>
-                                    <Route path="/signedin/mystations/:station/:plant" render={(props) => (
+                                    <Route exact path="/signedin/mystations/:station/:plant" render={(props) => (
                                         <ViewPlant
                                             match={props.match}
                                             water={this.props.water}

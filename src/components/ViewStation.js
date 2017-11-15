@@ -11,7 +11,6 @@ export default class ViewStation extends Component{
         let username = this.props.mainState.auth.sessionUser.username;
         let stationName= this.props.match.params.station;
         console.log(this.props);
-        this.props.fetchStations(username);
         //Retrieving desired station from database on render, based on the "station" parameter of the router.
         this.props.fetchOneStation(username, stationName);
     }
@@ -68,6 +67,7 @@ export default class ViewStation extends Component{
 
                                 <div className="my-plants-header">
                                     <div className="my-plants-header-overview column">
+                                        <div className="vertically-centered green-text"><h3>{focusStation.name}</h3></div>
                                         <div className="vertically-centered">{focusStation.plants.length} plants registered on this station</div>
                                     </div>
                                     <Link to={"/signedin/mystations/" + stationParam + "/addplant"} className="my-plants-header-add-btn btn-all column">

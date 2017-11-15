@@ -201,8 +201,8 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch( addPlant(username))
 
             },
-            removeOnePlant: (plantId, username) => {
-                dispatch( removeOnePlant(plantId, username))
+            removeOnePlant: (plantName, username, stationName) => {
+                dispatch( removeOnePlant(plantName, username, stationName))
 
             },
 

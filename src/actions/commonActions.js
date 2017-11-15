@@ -175,23 +175,24 @@ export function focusOffPlant (plantId, username){
 }
 
 
-export function removeOnePlant(plantId, username){
-    console.log('remove one plant')
+export function removeOnePlant(plantName, username, stationName){
     socket.emit('user-remove-one-plant', (
             {
                 plant: {
-                    id: plantId
+                    name: plantName
                 },
                 user: {
                     username: username
+                },
+                station: {
+                    name: stationName
                 }
             }
         )
     );
     return (dispatch) => {
         socket.on('user-remove-one-plant-confirmation', function(data){
-            console.log('plant removed')
-            dispatch({type: 'UPDATE_PLANTS', payload: data})
+            dispatch({type: 'FOCUS_ON_STATION', payload: data})
         })
 
     }
