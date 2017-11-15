@@ -11,7 +11,6 @@ export default class ViewStation extends Component{
         let username = this.props.mainState.auth.sessionUser.username;
         let stationName= this.props.match.params.station;
         console.log(this.props);
-        this.props.fetchStations(username);
         //Retrieving desired station from database on render, based on the "station" parameter of the router.
         this.props.fetchOneStation(username, stationName);
     }

@@ -45,8 +45,6 @@ export default class MyStations extends Component {
                         </div>
                     </section>
 
-
-
                     :
 
                     <section className="col-sm-12 column div-cover">

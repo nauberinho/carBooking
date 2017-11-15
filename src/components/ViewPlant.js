@@ -16,7 +16,6 @@ export default class ViewPlant extends Component{
         let stationName = this.props.match.params.station;
         console.log(this.props)
         //Retrieving desired plant from database on render, based on the "plant" parameter of the router.
-        this.props.fetchStations(username);
         this.props.fetchOneStation(username, stationName);
         this.props.focusOnPlant(plantId, username, stationName);
 
@@ -26,6 +25,7 @@ export default class ViewPlant extends Component{
         let stationParam = this.props.match.params.station;
         let state = this.props.state;
         let focusPlant = state.focusPlant;
+        let plantId= this.props.match.params.plant;
         let focusStation = state.focusStation;
         let navButtons = state.focusStation.plants.map((plant, key ) => {
             return(
@@ -69,7 +69,7 @@ export default class ViewPlant extends Component{
                                     <div className="text-center">
                                         <span>Manual</span>
                                         <button className="btn btn-all btn-big" onClick={this.props.water}>Water now</button>
-                                        <Link to="/signedin/myplants" className="btn btn-all" onClick={() => {this.props.removeOnePlant(focusPlant._id, username), this.props.fetchPlants(username), this.props.focusOffPlant()}}>Remove this plant</Link>
+                                        <Link to={"/signedin/mystations/" + stationParam} className="btn btn-all" onClick={() => {this.props.removeOnePlant(focusPlant.name, username, stationParam), this.props.fetchOneStation(username, stationParam)}}>Remove this plant</Link>
                                     </div>
                                 </div>
                             </section>
