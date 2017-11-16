@@ -2,12 +2,13 @@ import socket from '../socket.js'
 
 const stationsReducer = (state = {
 
-    stations: [{name: 'myStation', plants: []}],
-
+    stations: [{
+            name: 'myStation', plants: []
+            }],
     focusStation: {
         name: "",
         key: "",
-        plants: []
+        plants:[]
     },
     focusPlant: {
         name: "",

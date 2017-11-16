@@ -9,7 +9,6 @@ import Toggle from 'react-toggle'
 
 export default class ViewPlant extends Component{
     componentWillMount(){
-        this.forceUpdate()
         let username = this.props.mainState.auth.sessionUser.username;
         console.log(this.props.match)
         let plantId= this.props.match.params.plant;
@@ -29,7 +28,7 @@ export default class ViewPlant extends Component{
         let focusStation = state.focusStation;
         let navButtons = state.focusStation.plants.map((plant, key ) => {
             return(
-                <Link key={key} className="view-plant-nav-button centered" to={"/signedin/mystations/" + stationParam + "/" +  plant._id} onClick={()=> {this.props.focusOnPlant(plant._id, username, stationParam)}}>
+                <Link key={key} className="view-plant-nav-button centered" to={"/signedin/mystations/" + stationParam + "/" +  plant._id} onClick={()=> {this.props.focusOffPlant(), this.props.focusOnPlant(plant._id, username, stationParam)}}>
 
                     {plant._id === this.props.match.params.plant ?
                         <i className="fa fa-square" aria-hidden="true"></i>

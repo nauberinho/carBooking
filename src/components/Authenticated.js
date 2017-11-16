@@ -73,8 +73,6 @@ export default class Authenticated extends Component {
                                             fetchPlants={this.props.fetchPlants}
                                             fetchStations={this.props.fetchStations}
                                         />
-
-
                                     )}>
                                     </Route>
 
