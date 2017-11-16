@@ -829,13 +829,28 @@ ul{
 
             }
 
-/*********ADD PLANT*********************/
+/********* ADD SECTION *********************/
 
     .add-plant-input-container{
         width: 40%;
         height: 100%;
 
      }
+
+        .add-message{
+            position: absolute;
+            top: 2%;
+            right: 5%;
+            animation: fadeInDownMessage 500ms;
+            border: 1px solid black;
+            padding: 2%;
+            background-color: rebeccapurple;
+            color: white;
+            font-family: Abel, sans-serif;
+            border-radius: 5%;
+            font-weight: 700;
+
+        }
         .add-plant-input{
             display: block;
             width: 100%;
@@ -872,7 +887,7 @@ ul{
         border-left: 2px solid rebeccapurple;
         display: flex;
         flex-direction: column;
-        animation: fadeInDown 200ms;
+        animation: fadeInDownMenu 200ms;
         background: white;
         z-index: 1000;
     }
@@ -929,23 +944,30 @@ ul{
 
 }
 
-@keyframes fadeInDown{
+@keyframes fadeInDownMenu{
     from {
         position: absolute;
         opacity: 0;
         top: -100%;
         right: 0;
-
     }
-
     to {
         position: absolute;
         opacity: 1;
         top: 0%;
         right: 0;
-
     }
+}
 
+@keyframes fadeInDownMessage{
+    from {
+        opacity: 0;
+        top: -10%;
+    }
+    to {
+        opacity: 1;
+        top: 2%;
+    }
 }
 
 

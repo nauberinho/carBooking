@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import SignInOrSignUp from './SignInOrSignUp.js'
 import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
+import SignInOrSignUp from './SignInOrSignUp.js';
 import PulseLoaderViewstation from './PulseLoader.js';
-import "react-toggle/style.css"
-import Toggle from 'react-toggle'
+import AddStation from './AddStation.js';
+import "react-toggle/style.css";
+import Toggle from 'react-toggle';
 
 export default class ViewStation extends Component{
     componentWillMount(){
@@ -14,6 +15,7 @@ export default class ViewStation extends Component{
         //Retrieving desired station from database on render, based on the "station" parameter of the router.
         this.props.fetchOneStation(username, stationName);
     }
+
     render(){
         let state = this.props.stationsState;
         if(state.focusStation !== {}) {
@@ -64,6 +66,9 @@ export default class ViewStation extends Component{
                         {focusStation.name === stationParam ?
 
                             <section className="div-cover">
+                                <div className="view-plants-nav-wrapper column">
+                                    {navButtons}
+                                </div>
 
                                 <div className="my-plants-header">
                                     <div className="my-plants-header-overview column">

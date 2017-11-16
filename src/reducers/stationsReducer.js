@@ -3,7 +3,7 @@ import socket from '../socket.js'
 const stationsReducer = (state = {
 
     stations: [{
-            name: 'myStation', plants: []
+            name: '', plants: []
             }],
     focusStation: {
         name: "",
@@ -28,17 +28,42 @@ const stationsReducer = (state = {
         __v: 0,
         _id: ""
     },
-    message: ""
+    stationToAdd: {
+        name: "",
+        key: ""
+    },
+    addPlantMessage: "",
+    addStationMessage: ""
 
 }, action) => {
 
     let newState = {...state};
 
     switch(action.type){
-
         case 'UPDATE_STATIONS':
             console.log(action.payload)
             newState.stations = action.payload;
+            return newState;
+
+        case 'UPDATE_STATION_TO_ADD':
+            newState.stationToAdd[action.payload.target.getAttribute('data-id')] = action.payload.target.value;
+            return newState;
+
+        case 'ADD_STATION':
+            socket.emit('user-add-station',
+                (
+                    {
+                        station: newState.stationToAdd,
+                        user: {
+                            username: action.payload.username,
+                            password: action.payload.password
+                        }
+                    }
+                )
+            );
+            socket.on('user-add-station-confirmation', function(data){
+                newState.addStationMessage = 'Your station was added.'
+            });
             return newState;
 
         case 'UPDATE_PLANT_TO_ADD':
@@ -84,14 +109,10 @@ const stationsReducer = (state = {
                         }
                     )
             );
-
             socket.on('user-add-plant-confirmation', function(data){
-                newState.message = 'Your plant was added.'
+                newState.addPlantMessage = 'Your plant was added.'
             });
-
             return newState;
-
-
 
         default:
             return newState;

@@ -28,14 +28,13 @@ export default class MyStations extends Component {
 
             <main className="content content-main">
 
-                {stations.length !== 0 ?
+                {stations[0].name.length !== 0 ?
 
                     <section className="div-cover">
 
                         <div className="my-plants-header">
                             <div className="my-plants-header-overview column">
-
-                                <div className="vertically-centered">You've got {stations.length} stations registered</div>
+                                <div className="vertically-centered green-text"><h2>My Stations</h2></div>
                             </div>
                             <Link to="/signedin/mystations/addstation" className="my-plants-header-add-btn btn-all column">
                                 <div className="vertically-centered"><i className="material-icons">add</i></div>

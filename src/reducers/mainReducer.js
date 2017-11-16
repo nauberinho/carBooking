@@ -10,6 +10,7 @@ const mainReducer = (state = {
         },
         sessionUser: {
             username: "skrra",
+            password: "skrra",
             favoritePlants: "Wild plants",
             myStations: [
                 {

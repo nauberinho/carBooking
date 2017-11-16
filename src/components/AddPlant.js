@@ -33,9 +33,11 @@ export default class AddPlant extends Component {
 
 
                 </div>
-                {this.props.stationsState.message.length > 0 ?
+                {this.props.stationsState.addPlantMessage.length > 0 ?
 
-                <div>{this.props.stationsState.message}</div>
+                    <div className="add-message">
+                        {this.props.stationsState.addPlantMessage}
+                    </div>
 
                     : null
                 }

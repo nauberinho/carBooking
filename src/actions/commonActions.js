@@ -83,6 +83,13 @@ export function updatePlantToAdd(event){
     }
 }
 
+export function updateStationToAdd(event){
+    return{
+        type: 'UPDATE_STATION_TO_ADD',
+        payload: event
+    }
+}
+
 export function fetchStations(username){
 
     socket.emit('user-get-stations', ({user:{username: username}}));
@@ -116,6 +123,14 @@ export function addPlant(username){
 
     return {
         type: 'ADD_PLANT',
+        payload: {username: username}
+    }
+}
+
+export function addStation(username){
+
+    return {
+        type: 'ADD_STATION',
         payload: {username: username}
     }
 }

@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import SignInOrSignUp from './SignInOrSignUp.js';
 import { BrowserRouter, Route, Switch, Redirect, NavLink, Link} from 'react-router-dom';
 import MyPlants from './MyPlants.js';
+import MyStations from './MyStations.js';
 import ViewStation from './ViewStation.js';
-import ViewPlant from './ViewPlant.js';
+import AddStation from './AddStation.js';
 import AddPlant from './AddPlant.js';
+import ViewPlant from './ViewPlant.js';
 import ProfileMenu from './ProfileMenu.js';
 import MyProfile from './MyProfile.js';
-import MyStations from './MyStations.js';
+
 
 
 export default class Authenticated extends Component {
@@ -76,6 +78,22 @@ export default class Authenticated extends Component {
                                     )}>
                                     </Route>
 
+                                    <Route exact path="/signedin/mystations/addstation" render={(props) => (
+                                        <AddStation
+                                            state={state}
+                                            plantsState={this.props.plantsState}
+                                            match={props.match}
+                                            mainState={this.props.mainState}
+                                            fetchPlants={this.props.fetchPlants}
+                                            fetchStations={this.props.fetchStations}
+                                            fetchOneStation={this.props.fetchOneStation}
+                                            stationsState={this.props.stationsState}
+                                            updateStationToAdd={this.props.updateStationToAdd}
+                                            addStation={this.props.addStation}
+                                        />
+                                    )}>
+                                    </Route>
+
                                     <Route exact path="/signedin/mystations/:station" render={(props) => (
                                         <ViewStation
                                             state={state}
@@ -90,22 +108,6 @@ export default class Authenticated extends Component {
                                         />
                                     )}>
                                     </Route>
-
-                                    <Route exact path="/signedin/mystations/addstation" render={(props) => (
-                                        <ViewStation
-                                            state={state}
-                                            plantsState={this.props.plantsState}
-                                            match={props.match}
-                                            mainState={this.props.mainState}
-                                            fetchPlants={this.props.fetchPlants}
-                                            fetchStations={this.props.fetchStations}
-                                            fetchOneStation={this.props.fetchOneStation}
-                                            stationsState={this.props.stationsState}
-
-                                        />
-                                    )}>
-                                    </Route>
-
 
                                     <Route exact path="/signedin/mystations/:station/addplant" render={(props) => (
                                         <AddPlant
